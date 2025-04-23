@@ -10,30 +10,39 @@ Use the Hymalaia extension to ask questions from anywhere in Chrome. You can als
 ## Features
 
 - Ask questions from any page
-- Replace new-tab page with:
-  - Hymalaia Search
-  - Favorite website bookmarks
-  - Hymalaia sidebar on any page
+- Access the Hymalaia Sidebar anywhere on the web
+- Use smart context menu actions:
+   - 🔎 **Search selected text** in Hymalaia  
+   - 🧠 **Add selected text to your conversation**  
+   - 📄 **Add the entire page** to your conversation  
+   - ✨ **Ask Hymalaia to summarize the page**  
+   - 🕵️‍♂️ **Look up name details** (LinkedIn, etc.)
 
-:::info
+<Note>
 Future versions of the Hymalaia Chrome Extension will allow you to ask questions about the page you're currently on and index recently visited pages into Hymalaia's knowledge base.
-:::
+</Note>
 
 ## Setting Up (Self-Hosted Users)
 
-:::tip
+<Tip>
 If you're using **Hymalaia Cloud**, install the extension directly from the Chrome Web Store.
-:::
+</Tip>
 
 > Minimum required version: `v0.19.0`
 
-1. Go to `chrome://extensions` in Chrome.  
+1. Go to `chrome://extensions` in Chrome. 
+<img src="/images/chrome-extension.png" className="rounded-xl shadow-md mx-auto" />
+
 2. Enable **Developer mode** (upper right).  
 3. Click **Load unpacked**.  
 4. Select the folder of the Hymalaia Chrome Extension repo (e.g., `Hymalaia-chrome-extension`).  
 5. Click **Load**.  
 6. Click the `...` next to the extension → **Options**.  
+<img src="/images/plugin-option.png" className="rounded-xl shadow-md mx-auto" />
+
 7. Set the **Root Domain** to your self-hosted Hymalaia instance’s URL.  
+<img src="/images/plugin-setting.png" className="rounded-xl shadow-md mx-auto" />
+
 ✅ The extension is now active and connected to your instance.
 
 ## Enterprise Installation (Google Admin)
@@ -43,6 +52,7 @@ Use this if you manage a large group of users via Google Admin.
 ### Step 1: Access Chrome Management
 
 - Go to `Devices → Chrome → Apps and extensions`.
+<img src="/images/management.png" className="rounded-xl shadow-md mx-auto" />
 
 ### Step 2: Install Extension
 
