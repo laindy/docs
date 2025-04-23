@@ -1,0 +1,41 @@
+---
+title: Permissioning
+description: Understand how document access permissions are managed in Hymalaia based on connector access levels.
+---
+
+In Hymalaia, permissions for what documents users can and cannot access are determined by the **access level** set for each connector.
+
+---
+
+## Connector Access Types
+
+There are three types of connector access:
+
+### 1. Public
+
+- Any user in your Hymalaia instance can access the documents in the connector.
+
+---
+
+### 2. Private
+
+- Documents from **private connectors** are only accessible to users in the **group(s)** that the connector is attached to.
+- You can assign connectors to one or more groups in the admin panel.
+
+---
+
+### 3. Sync
+
+- **Sync connectors** inherit permissions from the **source platform**.
+- For example, if a Google Drive document is only shared with a specific user, only that user will be able to access it in Hymalaia.
+- Matching is performed based on the user’s **email address**.
+- **Document permissions for sync connectors are not editable within Hymalaia**.
+
+#### Currently Supported Sync Sources:
+
+- Google Drive
+- Confluence
+- Jira
+- Slack
+
+> ⚠️ Syncing ensures that Hymalaia respects your existing permission structure in connected platforms.

@@ -1,0 +1,65 @@
+---
+title: Highspot Connector
+description: Index and search your Highspot content using Hymalaia
+---
+
+## How it works
+
+The Highspot connector indexes documents from your Highspot instance. It can index:
+
+- **Specific spots** that you add manually  
+- Or **all spots** your user can view and download
+
+> Content is pulled in securely based on your access permissions.
+
+---
+
+## Setting up
+
+### ⚠️ Prerequisite: Platform Plus Add-on
+
+> The **Highspot Platform Plus** add-on is required to access API features.  
+> Without this, the connector will not work. Please confirm your organization has access.
+
+---
+
+## Authorization
+
+### Enabling Developer Options
+
+1. Log into Highspot as an **admin**.
+2. Click on your **profile icon** → select **Settings**.
+3. Under **Company Settings**, select your company.
+4. Navigate to **Access and Privacy** → click **API Access**.
+5. Add the user(s) who should be able to generate API credentials.
+6. Make sure **API Access for Users** is enabled.
+
+---
+
+### Generating API Credentials
+
+1. Log in as the user with API access.
+2. Go to your **profile icon** → **Settings**.
+3. Open the **Developer** tab.
+4. Generate a new **API key and secret**.
+5. Note down your:
+   - **API Key**
+   - **Secret**
+   - **Base URL**
+
+---
+
+## Indexing
+
+1. Navigate to the **Admin Dashboard** in Hymalaia.
+2. Select the **Highspot Connector**.
+3. Provide the following:
+   - API Key  
+   - Secret  
+   - Base URL  
+4. Choose your indexing option:
+   - Index **specific spots**
+   - Index **all accessible spots**
+5. Click **Connect** to begin syncing your Highspot content.
+
+> Your Highspot data will now be indexed and searchable within Hymalaia.

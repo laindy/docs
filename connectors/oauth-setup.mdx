@@ -1,0 +1,82 @@
+---
+title: Gmail OAuth Setup
+description: Set up the Gmail connector using an OAuth-enabled Google App
+---
+
+## Overview
+
+This guide walks you through setting up the Gmail connector using a **Google OAuth App**.  
+> ✅ This can be done with a **free Google account** — no paid Google Workspace required.
+
+> 🏢 If you're using **Google Workspace** and prefer to use a Service Account, that option will be available soon.
+
+## Authorization
+
+### 1. Create a Google Cloud Project
+
+- Go to [Google Cloud Console](https://console.cloud.google.com/projectcreate)
+- Create a new project
+
+### 2. Enable the Gmail API
+
+1. In the left menu, go to **APIs & Services**
+2. Click on **Enabled APIs and services**
+3. Click **+ ENABLE APIS AND SERVICES**
+4. Search for **Gmail API** and click **ENABLE**
+
+> Alternatively, [click here](https://console.cloud.google.com/apis/library/gmail.googleapis.com) and select your project to enable the Gmail API.
+
+### 3. Set up the OAuth Consent Screen
+
+1. Go to **APIs & Services** → **OAuth consent screen**
+2. Select **External** for User Type (if you don’t have a Google Organization)
+3. Set the app name to **hymalaia** (or another of your choosing)
+4. Fill required email fields (you can use `founders@hymalaia.app` if you'd like Hymalaia support)
+5. Click **Save and Continue**
+
+### 4. Set up Scopes
+
+- Add the following scope for Gmail access:
+  - `https://www.googleapis.com/auth/gmail.readonly`
+
+#### (Optional) Enable permission syncing
+
+To sync user or group permissions:
+
+1. Enable the **Admin SDK API**  
+   → [Enable Admin SDK API](https://console.cloud.google.com/apis/library/admin.googleapis.com)
+2. Add the following scopes:
+   - `https://www.googleapis.com/auth/admin.directory.user.readonly`
+   - `https://www.googleapis.com/auth/admin.directory.group.readonly`
+
+> 🔐 The user performing the OAuth flow **must be an Admin** in the Google Workspace and have the **"Groups > Read"** privilege set from the Admin Panel.
+
+### 5. Add Test Users (Only for External Apps)
+
+If your app is marked as **External** (i.e. no Google Organization):
+
+- Add at least **one test user email**
+- Only emails added here will be allowed to complete the OAuth flow
+- Click **Save and Continue**, review, and go **Back to Dashboard**
+
+### 6. Create OAuth Credentials
+
+1. Go to the **Credentials** tab
+2. Click **+ CREATE CREDENTIALS → OAuth client ID**
+3. Choose **Web application**
+4. Give it a name (e.g., `hymalaiaConnector`)
+
+#### Set Authorized URLs:
+
+- **Authorized JavaScript origins**:
+  - `http://localhost:3000`
+  - or `https://<YOUR_DEPLOYMENT_URL>`
+
+- **Authorized redirect URIs**:
+  - `http://localhost:3000/admin/connectors/gmail/auth/callback`
+  - or `https://<YOUR_DEPLOYMENT_URL>/admin/connectors/gmail/auth/callback`
+
+5. Click **Create**
+
+> 📥 On the right, next to **Client Secret**, click the download icon to download the **credentials JSON**.  
+You will need this in the next step when configuring the Gmail Connector in Hymalaia.

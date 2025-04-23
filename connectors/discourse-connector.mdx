@@ -1,0 +1,34 @@
+---
+title: Discourse Connector
+description: Access knowledge from your Discourse Topics
+---
+
+## How it works  
+The Discourse connector indexes documents from your Discourse Topics.
+
+## Setting up  
+
+### Authorization  
+1. Log into your **Discourse** account.  
+2. Ensure the user has **admin privileges**.  
+3. Go to the **Admin** menu from the homepage.  
+4. Open the **Advanced** submenu and select **API keys**.
+
+#### Create API Key:
+- Click **New API Key**  
+- Name it `Hymalaia`  
+- Set **User Level** to `All Users`  
+- Set **Scope** to `Read-only`  
+- Click **Save**
+
+5. Copy the generated **API Key**.  
+6. Use the **username** of the Discourse account for the **API Key Username** in Hymalaia.
+
+### Indexing  
+1. Enter a **name** for the connector (useful if managing multiple Discourse connectors).  
+2. Provide your **Discourse base URL** (e.g., `https://community.yourdomain.com`).  
+3. Enter the **Topics** you want to index:
+   - Leave blank to index **all available topics**
+4. Click **Connect** to begin indexing.
+
+The connector will now index the selected topics and sync any updates.

@@ -1,0 +1,71 @@
+---
+title: LLM Providers
+description: A comprehensive guide to selecting and using LLM providers in Hymalaia.
+icon: "sitemap"
+---
+
+Hymalaia is designed to be model-agnostic, giving you the flexibility to select the Language Model (LLM) that best suits your needs. This means you're not tied to a single provider and can mix and match models based on the strengths required for each task.
+
+## Model Overview
+
+Hymalaia supports integration with leading LLM providers, with a strong focus on **OpenAI** and **Anthropic** models.
+
+### OpenAI Models
+
+#### GPT-3.5-Turbo
+- **Strengths:** High speed, reliable quality for general tasks
+- **Best for:** Quick queries, general information retrieval
+- **Knowledge cutoff:** September 2021
+
+#### GPT-4
+- **Strengths:** Superior reasoning, creative output, accurate code generation
+- **Best for:** Complex analysis, creative tasks, code-heavy scenarios
+- **Knowledge cutoff:** April 2023  
+- **Note:** Capable of image analysis
+
+### Anthropic Models
+
+#### Claude-3 Opus
+- **Strengths:** Exceptional reasoning and analysis
+- **Best for:** Complex problem-solving, long-form content
+- **Note:** High accuracy, may have slower response times
+
+#### Claude-3 Sonnet
+- **Strengths:** Balanced performance and speed
+- **Best for:** General-purpose tasks requiring both quality and efficiency
+
+#### Claude 3.5 Sonnet
+- **Strengths:** Enhanced capabilities over Sonnet
+- **Best for:** Advanced general-purpose tasks  
+- **Recommended:** Ideal balance of quality and performance for most use cases
+
+#### Claude-3 Haiku
+- **Strengths:** Fast and lightweight
+- **Best for:** Simpler tasks, real-time responsiveness
+- **Note:** Optimized for speed with trade-offs in complexity
+
+## Custom Providers
+
+Hymalaia supports custom LLMs via the [LiteLLM](https://docs.litellm.ai/docs/providers) provider list. You can integrate specialized or internal models to align with your organization's privacy, cost, or domain-specific needs.
+
+## Choosing the Right Model
+
+| Factor            | Recommendation                                                      |
+|-------------------|-----------------------------------------------------------------------|
+| **Task Complexity** | Use GPT-4 or Claude-3 Opus for heavy reasoning or complex requests   |
+| **Speed**           | Use GPT-3.5-Turbo or Claude-3 Haiku for fast, lightweight queries    |
+| **Cost**            | Consider cheaper models for high-volume use cases                   |
+| **Privacy**         | Self-host models like Llama 2 if data privacy is critical           |
+| **Specialization**  | Evaluate model strengths for tasks like coding, writing, or support |
+
+> 💡 **Tip:** For most use cases, **Claude 3.5 Sonnet** is recommended due to its optimal balance of power and performance.
+
+## Leveraging Model Flexibility
+
+- **Experiment:** Compare models on real queries to assess response quality.
+- **Monitor:** Use Hymalaia analytics to understand which models perform best.
+- **Stay Updated:** Watch for LLM version updates and improvements.
+- **Integrate Custom Models:** Utilize LiteLLM to plug in your own model APIs.
+
+---
+By choosing the right model and leveraging Hymalaia's flexible architecture, you can fine-tune your AI capabilities to meet any business or technical challenge.

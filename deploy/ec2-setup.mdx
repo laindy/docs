@@ -1,0 +1,142 @@
+---
+title: "[Recommended] EC2 Setup"
+description: Setup Hymalaia on AWS EC2
+---
+
+Using EC2 (or an EC2 equivalent like GCP, Azure, or DigitalOcean) is the **recommended** way to deploy Hymalaia. It’s simple and should meet the performance needs of 90% of organizations.
+
+While this guide is written for AWS EC2, most of the steps apply to other cloud providers as well.
+
+If you need personalized setup help, feel free to reach out via our [Contact Us](#) page.
+
+---
+
+## Getting an Instance
+
+Start by launching an EC2 instance with the following recommended specs:
+
+- **RAM**: At least 16GB  
+- **vCPU**: 4-8 cores  
+- **Disk**: 500GB
+
+> ✅ For reference, our Cloud offering uses `m7g.xlarge` with 500GB of EBS storage.
+
+When configuring your **security group**, ensure **HTTPS traffic** is allowed.
+
+---
+
+## Pointing your Domain
+
+Next, point your **domain** to your new EC2 instance:
+
+1. Grab your **public IP address** from the AWS Console.
+2. Go to your **DNS provider** (e.g., GoDaddy).
+3. Add **two DNS A records**:
+
+   - `@` → points to your EC2 public IP
+   - `www` → also points to the same IP
+
+If you don’t have a domain yet, you can skip HTTPS and continue with plain HTTP for now.
+
+---
+
+## Installing Dependencies
+
+Install required dependencies: `git`, `docker`, and `docker-compose`.
+
+```bash
+sudo yum update -y
+
+sudo yum install docker -y
+sudo service docker start
+
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+sudo yum install git -y
+```
+
+---
+
+## Starting up Hymalaia
+
+1. Clone the Hymalaia repository:
+
+```bash
+git clone https://github.com/hymalaia-dot-app/hymalaia.git
+```
+
+2. Set environment variables:
+
+```bash
+cd hymalaia/deployment/docker_compose
+touch .env
+touch .env.nginx
+```
+
+3. In `.env`, paste the following (edit fields as needed):
+
+```bash
+WEB_DOMAIN=<YOUR_DOMAIN>  # e.g. "hymalaia.app"
+VALID_EMAIL_DOMAINS=<YOUR_COMPANY_DOMAIN>
+
+AUTH_TYPE=basic
+# To enable email verification:
+# REQUIRE_EMAIL_VERIFICATION=true
+# SMTP_USER=<YOUR_EMAIL>
+# SMTP_PASS=<EMAIL_PASSWORD>
+
+# For Google OAuth, comment the above and uncomment:
+# AUTH_TYPE=google_oauth
+# GOOGLE_OAUTH_CLIENT_ID=
+# GOOGLE_OAUTH_CLIENT_SECRET=
+# SECRET=<GENERATED_UUID>
+
+GEN_AI_MODEL_PROVIDER=openai
+GEN_AI_MODEL_VERSION=gpt-4
+
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+```
+
+4. In `.env.nginx`, add:
+
+```bash
+DOMAIN=<YOUR_DOMAIN>  # e.g. "hymalaia.app"
+```
+
+---
+
+## SSL with Let's Encrypt
+
+Run the following to generate your SSL certificate:
+
+```bash
+./init-letsencrypt.sh
+```
+
+> ⚠️ If skipping HTTPS, use the command below to start the app:
+
+```bash
+docker-compose -f docker-compose.dev.yml -p hymalaia-stack up -d --build --force-recreate
+```
+
+Then access Hymalaia via your instance’s **Public IPv4 DNS** or **IP address**.
+
+---
+
+## You're All Set! 🎉
+
+After a few minutes, Hymalaia should be ready. To confirm:
+
+```bash
+docker logs hymalaia-stack-api_server-1 -f
+```
+
+Wait for:
+
+```
+INFO: Application startup complete.
+```
+
+And you're good to go!

@@ -1,0 +1,152 @@
+---
+title: "Deploy on GCP"
+description: Setup Hymalaia on GCP
+icon: 'google'
+---
+
+You can use **Google Compute Engine (GCE)** to deploy Hymalaia. The steps are very similar to deploying on AWS EC2.
+
+Before we get started, make sure you have a Google Cloud account and the necessary permissions to create a VM instance.
+
+> 💡 Need help? Reach out via our [Contact Us](#) page.
+
+---
+
+## Getting a VM Instance
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/) and create a **VM Instance**.
+2. Choose an existing project or create a new one.
+3. Recommended specs:
+   - **RAM**: At least 16GB
+   - **vCPU**: 4-8 cores
+   - **Disk**: 500GB
+   - Suggested machine types: `e2-standard-4` or `e2-standard-8`
+
+> 📘 For more info, check out our [resourcing guide](#).
+
+4. Allow **HTTPS traffic** in the firewall rules.
+5. Choose **Debian GNU/Linux** as the OS.
+
+---
+
+## Pointing Your Domain
+
+1. Grab the **External IP address** from the GCP VM instance list.
+2. Head to your DNS provider (e.g., GoDaddy).
+3. Add two A records:
+
+   ```
+   @     →  <EXTERNAL_IP>
+   www   →  <EXTERNAL_IP>
+   ```
+
+If you don’t have a domain yet, you can skip HTTPS for now.
+
+---
+
+## Installing Dependencies
+
+Install required tools: `git`, `docker`, and `docker-compose`.
+
+For **Debian-based systems**:
+
+```bash
+sudo apt update
+sudo apt install -y ca-certificates curl gnupg
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+For **CentOS / RHEL**:
+
+```bash
+sudo yum update -y
+
+sudo yum install docker -y
+sudo service docker start
+
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+sudo yum install git -y
+```
+
+---
+
+## Starting up Hymalaia
+
+1. Clone the repo:
+
+```bash
+git clone https://github.com/hymalaia-dot-app/hymalaia.git
+```
+
+2. Prepare environment files:
+
+```bash
+cd hymalaia/deployment/docker_compose
+touch .env
+touch .env.nginx
+```
+
+3. In `.env`, paste and customize:
+
+```env
+WEB_DOMAIN=<YOUR_DOMAIN>  # e.g. "hymalaia.app"
+VALID_EMAIL_DOMAINS=<YOUR_COMPANY_DOMAIN>
+
+AUTH_TYPE=basic
+# REQUIRE_EMAIL_VERIFICATION=true
+# SMTP_USER=<EMAIL>
+# SMTP_PASS=<PASSWORD>
+
+# AUTH_TYPE=google_oauth
+# GOOGLE_OAUTH_CLIENT_ID=
+# GOOGLE_OAUTH_CLIENT_SECRET=
+# SECRET=<UUID>
+
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+```
+
+4. In `.env.nginx`, paste:
+
+```env
+DOMAIN=<YOUR_DOMAIN>  # e.g. "hymalaia.app"
+```
+
+5. Generate an SSL certificate with Let's Encrypt:
+
+```bash
+sudo ./init-letsencrypt.sh
+```
+
+> ⚠️ If skipping HTTPS, use this instead:
+
+```bash
+sudo docker compose -f docker-compose.dev.yml -p hymalaia-stack up -d --pull always
+```
+
+---
+
+## You're All Set! 🎉
+
+To monitor startup progress:
+
+```bash
+sudo docker logs hymalaia-stack-api_server-1 -f
+```
+
+Once you see:
+
+```
+INFO: Application startup complete.
+```
+
+You're good to go!

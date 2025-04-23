@@ -1,0 +1,71 @@
+---
+title: Sharepoint Connector
+description: Access files and notes from your Sharepoint Sites
+---
+
+## How it works
+
+- Indexes all documents **attached** to configured Sharepoint sites
+- Does **not** parse Sharepoint page content itself (only the files)
+- Supported file formats:
+  - Word (`.doc`, `.docx`)
+  - Excel (`.xls`, `.xlsx`)
+  - PDF
+  - PowerPoint (`.ppt`, `.pptx`)
+  - Plaintext (`.txt`, `.mdx`, etc.)
+
+---
+
+## Setting up
+
+### Authorization
+
+> 📺 For detailed instructions, refer to the [Sharepoint connector setup video].
+
+1. Log into your **Azure portal**
+2. Navigate to **App registrations**
+3. Click **New Registration**
+   - Name it something like `Hymalaia Sharepoint Connector`
+   - Leave all other fields as default
+   - Click **Register**
+
+4. In the **Overview** tab, under **Essentials**, copy the following:
+   - **Application (client) ID**
+   - **Directory (tenant) ID**
+
+5. Go to the **Certificates & secrets** tab
+   - Click **New client secret**
+   - Add a description, set expiration to **24 months**
+   - Click **Add**
+   - Copy the **secret value** from the **Value** column
+
+6. Go to the **API Permissions** tab
+   - Click **Add a permission**
+   - Choose **Microsoft Graph → Application permissions**
+   - Under **Sites**, select:
+     - `Sites.Read.All` (for full org-wide read)
+     - Or `Sites.Selected` (for limited access to specific sites)
+   - Click **Add permissions**
+   - Click **Grant admin consent for \<Your Organization\>** and confirm
+
+> ⚠️ If you selected `Sites.Selected`, you must **manually assign** the app to each Sharepoint site you want indexed.
+
+---
+
+## Indexing
+
+1. Go to the **Admin Dashboard**
+2. Select the **Sharepoint Connector** tile
+3. Provide the following credentials:
+   - `Application (client) ID`
+   - `Directory (tenant) ID`
+   - `Client Secret`
+
+4. Optionally, list specific **Sharepoint sites** to index  
+   (Leave blank to index all accessible sites)
+
+5. Click **Connect** to begin indexing
+
+---
+
+Once connected, all files in the specified Sharepoint sites will be indexed and searchable within Hymalaia.

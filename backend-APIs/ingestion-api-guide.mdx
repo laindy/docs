@@ -1,0 +1,85 @@
+---
+title: Ingestion API
+description: Ingest arbitrary documents directly into Hymalaia using the backend API
+---
+
+The Ingestion API allows you to directly send arbitrary documents to Hymalaia's backend for indexing and search. This is useful for cases where data doesn't originate from an existing connector or when you want to supplement/override specific content.
+
+---
+
+## 📚 Typical Uses
+
+Use the Ingestion API when:
+
+- You have documents not tied to any connector but useful for search.
+- You want to **programmatically ingest documents** instead of setting up a connector.
+- You want to **edit existing docs** without altering their original source.
+- You want to **enhance connector docs** (e.g., attach a README to a GitHub project).
+
+---
+
+## 🚀 Example: Ingesting a Web Document
+
+This example sends a document of type `"web"` to Hymalaia via `curl`.
+
+```bash
+curl --location 'localhost:8080/hymalaia-api/ingestion' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <YOUR_API_TOKEN>' \
+--data '{
+  "document": {
+    "id": "ingestion_document_1",
+    "sections": [
+      {
+        "text": "This is the contents of the document that will be processed and saved into the vector+keyword document index. ",
+        "link": "https://docs.hymalaia.app/introduction#what-is-hymalaia"
+      },
+      {
+        "text": "You can include multiple content sections each with their own link or combine them. ",
+        "link": "https://docs.hymalaia.app/introduction#main-features"
+      }
+    ],
+    "source": "web",
+    "semantic_identifier": "Hymalaia Ingestion Example",
+    "metadata": {
+        "tag": "informational",
+        "topics": ["hymalaia", "api"]
+    },
+    "doc_updated_at": "2024-04-25T08:20:00Z"
+  },
+  "cc_pair_id": 1
+}'
+```
+
+> ℹ️ Note: The bearer token is generated at server startup in **Hymalaia MIT**. For more robust auth, **API Keys** are available in **Hymalaia EE**.
+
+---
+
+## 🔍 Field Breakdown
+
+| Field | Description |
+|-------|-------------|
+| `id` | Unique document ID. If omitted, it's generated from `semantic_identifier`. Existing docs with same ID are updated. |
+| `sections` | List of content sections. Each has `text` and optionally a `link`. Sections are used for chunking and influence search results. |
+| `source` | Source type (e.g. `"web"`). Full list found under `DocumentSource` in Hymalaia code. |
+| `semantic_identifier` | Acts as the **title** of the document in the UI. |
+| `metadata` | Metadata such as `tag` or `topics`. These are displayed as document **tags**. Accepts string or array. |
+| `doc_updated_at` | Timestamp of last update. Hymalaia uses this to apply recency-based scoring. |
+| `cc_pair_id` | Connector ID the doc should belong to. Use `1` for default. This links the doc to connector groups and deletion. |
+
+---
+
+## 📥 Checking Ingested Documents
+
+You can view all documents that have been indexed through the ingestion API using the corresponding endpoint (e.g. `/hymalaia-api/ingestion-docs`).
+
+---
+
+## 📘 See Also
+
+- [`DocumentBase`](#) – Backend object used for ingestion.
+- [`Connector Status`](http://localhost:3000/admin/connector) – See your connector IDs and metadata.
+
+---
+
+Need help or want to go deeper? Ping the Hymalaia team on Slack or Discord!

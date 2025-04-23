@@ -1,0 +1,46 @@
+---
+title: GitHub Connector
+description: Access knowledge from your GitHub Repositories
+---
+
+## How it works
+
+The GitHub Connector indexes **Pull Requests** and **Issues** from your specified repositories.
+
+It will:
+- Index **both Open and Closed PRs**, including the **Title** and **Summary**
+- Index **both Open and Closed Issues**, along with their **comments**
+- Include metadata such as:
+  - **URL**
+  - **Creator**
+  - And more
+
+## Setting up
+
+### Authorization
+
+This connector uses a **GitHub Access Token**.
+
+Follow these steps:
+
+1. Log in to [GitHub](https://github.com).
+2. In the upper-right corner, click your **profile avatar** and select **Settings**.
+3. Scroll down to **Developer settings** → **Personal access tokens** → **Tokens (classic)**.
+4. Click **Generate new token**.
+5. **Grant `repo` access** so the token can access PRs and Issues.
+6. Set an **expiration time**.
+   > ⚠️ Once the token expires, you must generate a new one and update it in Hymalaia to keep indexing up-to-date.
+
+### Indexing
+
+1. Go to the **Admin Dashboard**.
+2. Select **Add Connector** and click on the **GitHub** tile.
+3. Provide:
+   - The **GitHub Access Token**
+   - The repository URL (e.g., `https://github.com/hymalaia-dot-app/hymalaia`)
+   - An optional name for your credentials
+4. Click **Create Connector**.
+
+Hymalaia will automatically begin indexing your GitHub repository.
+
+> Example repo: `https://github.com/hymalaia-dot-app/hymalaia`

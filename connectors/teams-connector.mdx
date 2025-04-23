@@ -1,0 +1,46 @@
+---
+title: Teams Connector
+description: Access knowledge from your Teams Posts
+---
+
+## How it works
+
+- The Teams connector will index all files available to requested Teams sites.
+  
+---
+
+## Setting up
+
+### Authorization
+
+1. Log in to your **Azure Portal** for your organization.
+2. Navigate to **"App Registrations"** using the search bar.
+3. Click **New Registration**.
+4. Name it something like **Hymalaia Teams Connector”**, leave the defaults as they are, and click **Register**.
+5. Under **Essentials** in the overview tab, find the **Client ID** and **Directory ID**. Copy and paste those into the Hymalaia connector.
+6. Navigate to the **"Certificates & Secrets"** tab and click **New client secret**.
+   - Set a description, expiration (24 months), and click **Add**.
+   - Copy the secret value from the **Value** column and paste it into the Hymalaia connector.
+7. Navigate to the **"API Permissions"** tab.
+   - Click **Add a permission**.
+   - Select **Microsoft Graph** and then **Application permissions**.
+   - Under **Team** permissions, select **Team.ReadBasic.All**.
+   - Under **TeamsSettings** permissions, select **TeamSettings.ReadWrite.All**.
+   - Under **Channel** permissions, select **Channel.ReadBasic.All**.
+   - Under **ChannelSettings** permissions, select **ChannelSettings.ReadWrite.All**.
+   - Under **ChannelMessage** permissions, select **ChannelMessage.Read.All**.
+   - Under **ChannelMember** permissions, select **ChannelMember.Read.All**.
+8. Click **Add permissions** at the bottom.
+9. Finally, click **Grant admin consent for \<Organization Name\>** and confirm.
+
+### Indexing
+
+1. Navigate to the **Admin Dashboard** and select the **Teams Connector** tile.
+2. Provide the **Application (Client) ID**, **Directory (Tenant) ID**, and **Client Secret Value** from the steps above.
+3. Select the list of teams to pull from, or leave blank to pull from all teams.
+4. Click **Connect** to begin indexing.
+
+---
+
+Once connected, all the files from the selected Teams posts and channels will be indexed and available for search in Hymalaia.
+

@@ -1,0 +1,98 @@
+---
+title: File Connector
+description: Access knowledge from Local Files
+---
+
+## How it works
+
+The File Connector indexes user-uploaded files for retrieval and AI-powered answers.
+
+- Supports: `.txt`, `.pdf`, `.docx`, `.pptx`, `.xlsx`, `.csv`, `.md`, `.mdx`, `.conf`, `.log`, `.json`, `.tsv`, `.xml`, `.yml`, `.yaml`, `.eml`, `.epub`
+- You can also upload a `.zip` containing the supported file types
+  - Unsupported file types inside the zip will be ignored
+- Optionally, you can add a metadata line to enhance searchability
+
+## Adding Metadata
+
+Add a metadata line at the very **top** of your file. Supported formats:
+
+```
+#HYMALAIA_METADATA={"link": "<LINK>"}
+<!-- HYMALAIA_METADATA={"link": "<LINK>"} -->
+```
+
+This line must contain valid JSON. Available keys:
+
+- `link`
+- `primary_owners`
+- `secondary_owners`
+- `doc_updated_at`
+- `file_display_name`
+- Any custom `key: value` pairs (used as searchable tags in the UI)
+
+### Example
+
+```txt
+#HYMALAIA_METADATA={
+  "link": "https://github.com/hymalaia-dot-app/hymalaia/blob/main/CONTRIBUTING.md",
+  "primary_owners": ["yuhong@hymalaia.app", "chris@hymalaia.app"],
+  "secondary_owners": ["founders@hymalaia.app"],
+  "doc_updated_at": "2023-11-30T13:06:08.589616-08:00",
+  "file_display_name": "Desired File Name!",
+  "status": "draft"
+}
+```
+
+### Full file example
+
+```txt
+#HYMALAIA_METADATA={"link": "https://www.hymalaia.com/captcha", "file_display_name": "Captcha Setup"}
+How to set up captcha  
+Follow the example below to set up a captcha like you saw when you visited this page!  
+By including a captcha, this page is able to prevent web scrapers from reading it.
+```
+
+### Zip Upload + Metadata
+
+When uploading a `.zip`, you can include a `.hymalaia_metadata.json` at the root of the archive:
+
+```
+| file1.txt
+| file2.txt
+| .hymalaia_metadata.json
+```
+
+Example `.hymalaia_metadata.json`:
+
+```json
+[
+  {
+    "filename": "file1.txt",
+    "link": "https://example.com/file1",
+    "file_display_name": "File 1",
+    "primary_owners": ["owner1@example.com"],
+    "status": "in-review"
+  },
+  {
+    "filename": "file2.txt",
+    "link": "https://example.com/file2",
+    "file_display_name": "File 2",
+    "primary_owners": ["owner2@example.com"],
+    "status": "approved"
+  }
+]
+```
+
+## Setting up
+
+### Authorization
+
+- No external authentication is required.
+
+- Admins can upload files and make them available to everyone.
+- *(WIP)* Users will soon be able to upload personal files and keep them private.
+
+### Indexing
+
+1. In the **Hymalaia Admin Dashboard**, go to the **File Connector**
+2. Upload a supported file or a `.zip` archive

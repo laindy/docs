@@ -1,0 +1,87 @@
+---
+title: 'Resourcing'
+description: 'Recommended CPU / RAM / Disk to run Hymalaia'
+---
+## Running Locally
+
+When running locally through Docker, we recommend making **at least 4 vCPU cores and 10GB of RAM** available to Docker (**16GB is preferred**).  
+This can be configured in the **Resources** section of the Docker Desktop settings menu.
+
+## Single Cloud Instance
+
+For small- to mid-scale deployments, setting everything up on a **single instance** (e.g., AWS EC2, GCP Compute Engine, Azure VM) via **Docker Compose** is the simplest way to get started.  
+Check out our [EC2 deployment guide](https://docs.hymalaia.app/deployment/ec2) for a step-by-step walkthrough.
+
+We recommend the following for a single instance:
+
+- **CPU**: ≥ 4 vCPU cores (≥ 8 vCPU cores recommended for larger document volumes)
+- **Memory**: ≥ 16 GB RAM
+- **Disk**: ≥ 50 GB + ~2.5× the size of the indexed documents
+
+> 💡 **Note:** Vespa does **not allow writes** when disk usage exceeds 75%, so always allocate extra disk space.
+
+> 🧹 **Tip:** Old/unused Docker images can consume significant space. Run `docker system prune --all` regularly to free space.
+
+> ⚠️ **Compatibility:** Vespa requires **Haswell (2013) or later CPUs**. For older CPUs, use the `vespaengine/vespa-generic-intel-x86_64` image. This version is slower but compatible.
+
+## Kubernetes / AWS ECS
+
+For deployments where each component gets its own resources, allocate at least:
+
+| Component               | CPU    | Memory |
+|-------------------------|--------|--------|
+| `api_server`            | 1      | 2Gi    |
+| `background`            | 2      | 8Gi    |
+| `indexing_model_server` | 2      | 4Gi    |
+| `inference_model_server`| 2      | 4Gi    |
+| `postgres`              | 2      | 2Gi    |
+| `vespa`                 | ≥4     | ≥8Gi   |
+| `nginx`                 | 250m   | 128Mi  |
+
+> ⚠️ **Important:** The `vespa` component’s needs scale with the number of indexed documents.  
+For production, we **recommend more than the minimum** (e.g., 10 CPU, 20Gi+ RAM for 50GB of documents).
+
+**Minimum Node Size:** 14 vCPU / 23GB RAM
+
+## How Resource Requirements Scale
+
+The primary factor for scaling is the **size of the indexed documents**.
+
+For every **1GB of raw text documents**, expect:
+
+- **+3GB RAM**
+- **+0.5 CPU core**
+
+Baseline (without document indexing):  
+**4 vCPU** and **16GB RAM**
+
+> 📘 A “1GB document” means raw text. PDFs with images may be large in file size, but the actual text may be small.
+
+> 🧠 Dimensionality of embedding models and techniques like quantization can reduce requirements.
+
+## Example: 10GB of Text Documents
+
+### Index Component Requirements:
+
+- **CPU**: 4 + 10 × 0.5 = **9 cores**
+- **Memory**: 16 + 10 × 3 = **46GB**
+
+### Single Instance Total Recommendation:
+
+- **CPU**: ≥ 13 cores
+- **Memory**: ≥ 50GB
+
+> 🖥️ Suggested instance types: `m7g.4xlarge`, `c5.9xlarge`
+
+### Kubernetes / AWS ECS Breakdown:
+
+| Component               | CPU    | Memory |
+|-------------------------|--------|--------|
+| `api_server`            | 1      | 2Gi    |
+| `background`            | 2      | 8Gi    |
+| `indexing_model_server` | 2      | 4Gi    |
+| `inference_model_server`| 2      | 4Gi    |
+| `postgres`              | 2      | 4Gi    |
+| `vespa`                 | 10     | 34Gi   |
+
+**Total Recommended Node Size**: **17 CPU / 66Gi RAM**

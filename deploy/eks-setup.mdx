@@ -1,0 +1,133 @@
+---
+title: "EKS Setup"
+description: Setup Hymalaia on AWS EKS
+---
+
+This guide walks you through deploying **Hymalaia** on **AWS Elastic Kubernetes Service (EKS)** — Amazon's managed Kubernetes offering. This is a robust option if you want scalability and native integration with AWS services.
+
+---
+
+## Prerequisites
+
+Install the following tools:
+
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) – for creating and managing your EKS cluster.
+- [kubectl](https://kubernetes.io/docs/tasks/tools/) – the Kubernetes CLI to interact with the cluster.
+
+---
+
+## Cluster Setup and Configuration
+
+### Create the Cluster
+
+1. Go to **Elastic Kubernetes Service** in your AWS Console and click **Create Cluster**.
+2. For **Cluster service role**, create a new IAM role (e.g., `hymalaia-eks-cluster-role`). Accept all defaults.
+3. Choose a **Kubernetes version** still under standard support.
+4. Under **Add-ons**, include the **Amazon EBS CSI Driver** (required for PVC support). Leave all other defaults.
+
+> ⏱️ Cluster creation may take several minutes.
+
+---
+
+### Add Worker Nodes
+
+Once the cluster is **Active**:
+
+1. Navigate to the **Compute** tab and select **Add node group**.
+2. Name the group (e.g., `hymalaia-node-group`).
+3. For the **Node IAM role**, create or use an existing one **with the `AmazonEBSCSIDriverPolicy` attached** (e.g., `hymalaia-eks-nodegroup-role`).
+4. Set **Instance Type** to `c5.2xlarge` or `c5.4xlarge` depending on scale.
+5. Configure **Volume Size** (200GB–800GB recommended).
+6. Set **Desired** and **Minimum size** to `1`. Leave others as default.
+
+> 🛠️ Node provisioning may take up to 15 minutes.
+
+---
+
+## IAM User and Access
+
+### Create an IAM User
+
+1. Go to the [IAM Console](https://console.aws.amazon.com/iam).
+2. Click **Users** > **Create user** (e.g., `hymalaia-eks-user`).
+3. Attach the following policies:
+   - `AmazonEKSClusterPolicy`
+   - `AmazonEKSServicePolicy`
+
+### Generate Access Keys
+
+1. On the new user’s page, click **Create access key**.
+2. Choose **Command Line Interface (CLI)**.
+3. Save your **Access key** and **Secret access key**.
+
+### Grant Cluster Access
+
+1. Go to your EKS Cluster > **Access** > **Create access entry**.
+2. Select your user’s IAM ARN.
+3. Attach `AmazonEKSClusterAdminPolicy`.
+
+---
+
+## Connect to the Cluster
+
+Log into AWS via CLI:
+
+```bash
+aws configure
+```
+
+Then update your kubeconfig:
+
+```bash
+aws eks update-kubeconfig --region <your-region> --name <your-cluster-name>
+```
+
+---
+
+## Deploy Hymalaia
+
+### Create Namespace
+
+```bash
+kubectl create ns hymalaia
+```
+
+### Set Default Storage Class
+
+```bash
+kubectl patch storageclass gp2   -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'   -n hymalaia
+```
+
+### Apply Deployment
+
+Navigate to the `hymalaia/deployment/kubernetes` directory:
+
+```bash
+kubectl apply -f . -n hymalaia
+```
+
+Monitor pod status:
+
+```bash
+kubectl -n hymalaia get pods
+```
+
+Check API server logs:
+
+```bash
+kubectl -n hymalaia get pods | grep api-server | awk '{print $1}' | xargs -I {} kubectl -n hymalaia logs {} -f
+```
+
+Find the nginx LoadBalancer endpoint:
+
+```bash
+kubectl get svc -n hymalaia | grep nginx-service | awk '{print $4}'
+```
+
+> 🌐 Navigate to the IP to access your Hymalaia instance.
+
+---
+
+## You're All Set! 🎉
+
+Your Hymalaia deployment on AWS EKS is now up and running! For more advanced configuration, visit the [AWS EKS documentation](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html).

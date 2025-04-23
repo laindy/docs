@@ -1,0 +1,59 @@
+---
+title: Salesforce Connector
+description: Access knowledge from your Salesforce Objects
+---
+
+### How it works
+
+- Indexes documents from your Salesforce instance  
+- Organized around the **Salesforce Objects** you indicate (e.g., `Account`, `Opportunity`)
+- Includes data from related child objects (e.g., Contacts, Notes)
+
+---
+
+### Setting up
+
+#### Authorization
+
+1. Log into your **Salesforce** account
+2. Make sure the user is either:
+   - An **organization member**, or
+   - Has **admin access** to the data you want to index
+
+3. Click your **profile avatar**, then choose **Settings**
+4. Go to **My Personal Information → Reset My Security Token**
+5. Check your email for your **new Security Token**
+6. You will use:
+   - Your **Salesforce Username**
+   - Your **Password**
+   - The **Security Token**
+
+---
+
+### Indexing
+
+1. Navigate to the **Admin Dashboard**
+2. Select the **Salesforce Connector** tile
+3. Provide the following:
+   - **Username**
+   - **Password**
+   - **Security Token**
+4. Indicate the **Salesforce Object(s)** you want to index
+
+> 📌 Use the **singular** version of the object name (e.g., `Opportunity`, not `Opportunities`)  
+> 📌 If no objects are specified, the connector will **default to `Account`**
+
+---
+
+### An Example
+
+If you choose to organize by `Account`, Hymalaia will:
+
+- Create one document per **Account**
+- Attach to each document all related data:
+  - Including children objects like **Contacts**, **Notes**, etc.
+- For Contacts that are not attached to any Account, you must **explicitly include `Contact`** in the object list
+
+---
+
+This allows you to tailor how your Salesforce data is indexed and organized within Hymalaia.

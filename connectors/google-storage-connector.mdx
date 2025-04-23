@@ -1,0 +1,59 @@
+---
+title: Google Storage Connector
+description: Access documents stored in Google Cloud Storage buckets
+---
+
+## How it works
+
+The Google Cloud Storage connector pulls in all documents from a specified GCS bucket.  
+It supports multiple file types including **PDF, DOC, DOCX, TXT**, and more.
+
+> Documents are automatically synced and updated every **24 hours**.
+
+---
+
+## Setting up
+
+### Authorization
+
+1. Log into your [Google Cloud Console](https://console.cloud.google.com/).
+2. Navigate to **IAM & Admin** > **Service Accounts**.
+3. Click **Create Service Account**.
+4. Set a name for the account (e.g., `hymalaia-gcs-connector`) and click **Create**.
+5. Under **Role**, select `Storage Object Viewer` or another read-only role, then click **Continue**.
+6. Click **Done** to finish creating the account.
+7. On the **Service Accounts** page, select the newly created account.
+8. In the **Keys** section, click **Add Key** → **Create new key**.
+9. Choose **JSON** and click **Create**.
+10. A JSON file will be downloaded – this contains your credentials.
+
+From the JSON file, extract the following:
+
+- `project_id`
+- `client_id` (→ **Access Key ID**)
+- `private_key` (→ **Secret Access Key**)
+
+---
+
+### Indexing
+
+1. Go to the **Admin Dashboard** in Hymalaia.
+2. Select the **Google Cloud Storage Connector**.
+3. In **Step 1**, provide:
+   - **GCS Project ID**
+   - **Access Key ID** (from `client_id`)
+   - **Secret Access Key** (from `private_key`)
+4. Click **Update** to save the credentials.
+5. In **Step 2**, specify the **GCS Bucket** you want to index.
+6. Click **Connect** to begin indexing.
+
+---
+
+## Understanding Google Cloud Storage Structure
+
+Google Cloud Storage organizes your data into **buckets**.  
+Each bucket can contain an unlimited number of **objects (files)**.
+
+You can think of a **bucket** as a root folder and the **objects** as its files.
+
+For more details, see the [Google Cloud Storage documentation](https://cloud.google.com/storage/docs/introduction).

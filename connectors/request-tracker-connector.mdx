@@ -1,0 +1,44 @@
+---
+title: Request Tracker Connector
+description: Access tickets and transactions from Request Tracker 4.x
+---
+
+## How it works
+
+- This connector pulls in all **tickets updated within the last 10 minutes**
+- Tickets are updated **every 10 minutes**
+- Only **Request Tracker REST API 1.0** is supported  
+> ❗️Request Tracker **5.x** is **not supported** at this time
+
+---
+
+## Setting up
+
+### Create or use a Request Tracker user
+
+Create a user in **Request Tracker 4.x** with the following:
+
+- **Read access** to all queues Hymalaia should index
+
+---
+
+## Configure Danswer Request Tracker Connector
+
+1. Go to the **Admin Dashboard**
+2. Select the **Request Tracker Connector**
+
+### Step 1: Provide authentication
+
+- Enter your:
+  - **Request Tracker username**
+  - **Password**
+  - **RT installation base URL**
+
+### Step 2: Begin indexing
+
+- Click **Connect** to start indexing your Request Tracker tickets and transactions
+
+---
+
+For more details, refer to the [Request Tracker REST API 1.0 documentation](https://docs.bestpractical.com/rt/4.4.1/).
+

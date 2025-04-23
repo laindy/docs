@@ -1,0 +1,48 @@
+---
+title: Confluence Connector
+description: Access knowledge from your company Wiki
+---
+
+## How it works  
+The Confluence connector pulls in all pages and comments from the specified spaces/pages once at the beginning and then pulls updates every 10 minutes.
+
+## Setting up  
+
+### Authorization  
+Follow the guide described [here](https://developer.atlassian.com/cloud/confluence/basic-auth-for-rest-apis/) to get an access token.
+
+### Indexing  
+1. Navigate to the **Admin Dashboard** and select the **Confluence Connector**.
+
+2. For your credentials, provide the following:
+   - **Access Token**
+   - **Username** (typically an email address)
+
+3. For Confluence setup, provide:
+   - **Wiki Base URL**: The base URL of your Confluence instance (e.g., `https://your-domain.atlassian.net/wiki`)
+   - **Is Cloud**: Check this box if using **Confluence Cloud**, uncheck if using **Confluence Server/Data Center**
+
+4. Then choose how you’d like this connector to index your Confluence instance:
+
+#### Everything
+- Indexes all content the provided credentials have access to.
+
+#### Space
+- Input the **key** of the space to index (e.g., `KB`).
+
+#### Page
+- **Page ID**: ID of the specific page to index (e.g., `131368`).  
+  Leave empty to index the entire space.
+- **Index Recursively**: Check to index the specified page **and** all of its children.
+
+#### CQL Query
+- If you want finer control over what is indexed, use a **CQL query**.
+- Your query must contain `type=page`.  
+  Note: Any `lastmodified` filters will be overwritten.  
+  [Learn more about CQL](https://developer.atlassian.com/cloud/confluence/advanced-searching-using-cql/)
+
+5. Click the **Connect** button!  
+   All the specified spaces/pages and their comments will now be pulled into Hymalaia every 10 minutes.
+
+## Permission Syncing  
+If you are an **enterprise customer** connecting to **Confluence Server/Data Center** and you want to enable **permission syncing**, the provided credentials must belong to an **admin user**.

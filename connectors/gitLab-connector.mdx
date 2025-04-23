@@ -1,0 +1,51 @@
+---
+title: GitLab Connector
+description: Access knowledge from your GitLab repositories
+---
+
+## How it works
+
+The GitLab Connector indexes **Merge Requests** and **Issues** from your GitLab repository.
+
+It will:
+- Index **Open and Closed Merge Requests**, including **Title** and **Summary**
+- Index **Issues** (and **Incidents**) with their **comments**, both **Open and Closed**
+- Include metadata such as:
+  - **URL**
+  - **Creator**
+  - And more
+
+## Setting up
+
+### Authorization
+
+This connector uses a **GitLab Access Token**.
+
+To generate the token:
+
+1. Log in to [GitLab](https://gitlab.com)
+2. In the left sidebar, click your **avatar**
+3. Select **Edit profile**
+4. Go to **Access Tokens** and click **Add new token**
+5. Enter:
+   - A **name** for the token
+   - An **expiry date**  
+     > If not set manually, GitLab will default to **365 days from the current date**
+6. Select the **desired scopes**  
+   > See [GitLab documentation](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html) for more details
+7. Click **Create personal access token**
+
+> ⚠️ Keep the token somewhere safe. Once it’s created, GitLab will not show it again.
+
+### Indexing
+
+1. Go to the **Admin Dashboard**
+2. Select **Add Connector** and click on the **GitLab** tile
+3. If you are **not self-hosting**, keep the **GitLab URL as default**
+4. Provide:
+   - Your **GitLab Personal Access Token**
+   - The **GitLab repository URL** (e.g., `https://gitlab.com/hymalaia-ai/hymalaia`)
+   - Optionally, a **name** for your credentials
+5. Click **Create Connector**
+
+Hymalaia will now start indexing your GitLab repository.

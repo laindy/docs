@@ -1,0 +1,44 @@
+---
+title: Zendesk Connector
+description: Access knowledge from Zendesk Articles
+---
+
+## How it works
+
+- The **Zendesk Connector** syncs all the **published Articles** in your company’s Zendesk subdomain.
+  
+### Limitations:
+- It does not pick up **Zendesk Tickets**.
+- It does not include **comments**.
+- It pulls all the articles without the ability to select by **Category**.
+
+---
+
+## Setting up
+
+### Authorization
+
+To connect the Zendesk Connector, you need the following information:
+
+1. **Subdomain** of the Zendesk tenant (e.g., `your-company.zendesk.com`).
+2. **Email address** of the user to impersonate (owner of the **API Token**).
+3. **API Token**.
+
+### Getting the API Token:
+
+1. Log into Zendesk.
+2. Navigate to **Admin > Channels > API**.
+3. Under the **Tokens** tab, create a new API token and copy it.
+
+### Indexing
+
+1. Navigate to the **Admin Dashboard** and select **Add Connector** followed by the **Zendesk** tile.
+2. Provide the required information:
+    - Subdomain
+    - Email address
+    - API Token
+3. Click **Connect** to start pulling articles from Zendesk. Articles will be synced every **10 minutes**.
+
+---
+
+Once the connector is set up, you’ll be able to access and search through your Zendesk articles within Hymalaia.

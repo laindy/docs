@@ -1,0 +1,74 @@
+---
+title: Oracle Storage Connector
+description: Index and search documents from Oracle Cloud Infrastructure (OCI) using Hymalaia
+---
+
+## How it works
+
+The connector pulls in **all documents** from a specified OCI bucket. It supports formats like:
+
+- PDF
+- DOC / DOCX
+- TXT
+- and more
+
+> Documents are automatically updated every **1 day**.
+
+---
+
+## Setting up
+
+### Authorization
+
+1. Log into your **Oracle Cloud Console**.
+2. Click your **user icon** (top-right) → choose **User Settings**.
+3. Under “Resources”, click **Customer Secret Keys**.
+4. Click **Generate Secret Key**.
+   - Provide a name like `"HymalaiaOCIConnector"`
+   - Click **Generate**
+5. Copy the **Secret Key** immediately – you **won’t** be able to see it again.
+6. The **Access Key** will be listed alongside your secret key.
+
+---
+
+### Finding Your Namespace
+
+1. Click your **user icon** (top-right)
+2. Select **Tenancy: [your tenancy name]**
+3. In the tenancy details, copy the **Object Storage Namespace**
+
+---
+
+## Indexing
+
+1. Go to the **Admin Dashboard** in Hymalaia
+2. Select the **Oracle Cloud Infrastructure Storage Connector**
+
+### Step 1: Authentication
+
+Fill in the following credentials:
+
+- **OCI Access Key**
+- **OCI Secret Key**
+- **Namespace**
+- **Region**
+
+Click **Update** to save the credentials.
+
+---
+
+### Step 2: Select Your Bucket
+
+1. Specify the **OCI bucket** you want to make searchable
+2. Click **Connect** to begin indexing
+
+---
+
+## OCI Object Storage Overview
+
+Oracle Object Storage uses a **bucket-based structure**, similar to a directory system:
+
+- Each **bucket** is like a root folder
+- Inside are **objects** (files)
+
+> For more info, see [Oracle Cloud Infrastructure Object Storage Docs](https://docs.oracle.com/en-us/iaas/Content/Object/Concepts/objectstorageoverview.htm)

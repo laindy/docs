@@ -1,0 +1,37 @@
+---
+title: Document360 Connector
+description: Access wiki articles from Document360
+---
+
+## How it works  
+The Document360 connector will pull in all the articles based on the specified workspace and categories.
+
+- Articles can be saved in **HTML** or **Markdown** format in Document360.
+- **Only HTML** format is currently supported.
+- Articles are updated **every 10 minutes**.
+
+> ⚠️ If you need Markdown support, please submit an issue [here](#).
+
+## Setting up  
+
+### Authorization  
+1. Navigate to:  
+   **Settings > Knowledge base portal > API tokens**
+2. Click **Generate**
+3. Enter a **Token name**  
+4. Select the **Request methods** allowed for the API key  
+5. Click **Generate**
+6. Your **Portal ID** and **API Key** will be displayed
+
+### Indexing  
+1. Go to the **Admin Dashboard**  
+2. Select the **Document360 Connector**
+3. In **Step 1**, provide:
+   - **Portal ID**
+   - **API Key**
+4. Enter the **Workspace ID**
+5. Choose **Categories** to index:
+   - Leave empty to include **all categories**
+6. Click **Connect** to begin indexing
+
+The connector will now pull articles from Document360 and sync updates every 10 minutes.

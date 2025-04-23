@@ -1,0 +1,87 @@
+---
+title: Theming
+description: Customize the look of Hymalaia
+---
+
+Customize the look of Hymalaia to match your brand and style. As part of the Enterprise Edition, we provide two main areas of UI customization:
+
+- Setting a custom application name and logo  
+- Customizing the full color palette
+
+---
+
+## Customizing the Application Name / Logo
+
+You can provide your own application name and logo via the **Whitelabelling** tab in the admin panel.
+
+### Available Options
+
+- **Application Name**: Replace "Hymalaia" with a name of your choice.
+- **Logo Upload**: Upload a custom logo that will be displayed throughout the app.
+
+---
+
+## Advanced Options
+
+Further personalization is available through the following UI elements:
+
+| Element               | Description                                                                                   |
+|-----------------------|-----------------------------------------------------------------------------------------------|
+| **Chat Header Content** | Custom Markdown displayed as a banner at the top of the Chat page.                            |
+| **Popup Header**        | The title for the initial visit popup. If left blank, defaults to `Welcome to [App Name]!`. |
+| **Popup Content**       | Custom Markdown content shown on the user's first visit.                                      |
+| **Chat Footer Text**    | Markdown content displayed at the bottom of the Chat page.                                    |
+| **Chat Footer Logotype**| Image-based logo displayed at the bottom right of the Chat page.                              |
+
+---
+
+## Customizing Colors
+
+Hymalaia uses **Tailwind CSS** for styling and theming. Color configuration happens across two files:
+
+- `web/tailwind-themes/tailwind.config.js`: Defines base Tailwind configuration and color values.
+- `web/src/app/globals.css`: Declares CSS variables for theme colors.
+
+### Steps to Customize the Palette
+
+#### Option 1: Direct Edit
+
+1. Open `web/src/app/globals.css`.
+2. Modify the CSS variables (e.g., background color, accent colors).
+3. Open `web/tailwind-themes/tailwind.config.js` to override or extend Tailwind colors.
+
+#### Option 2: Custom Theme Folder
+
+1. Navigate to `web/tailwind-themes`.
+2. Create a new folder named after your organization (e.g., `acme`).
+3. Inside that folder, create a `tailwind.config.js` file.
+4. Override the default values.
+
+Example:
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        "background": "#000000",
+      },
+    },
+  },
+};
+```
+
+5. Set the following environment variable:
+
+```bash
+export NEXT_PUBLIC_THEME=acme
+```
+
+This tells Hymalaia to use the custom theme folder.
+
+> ⚠️ **Important**: For changes to apply, you must build Hymalaia from source. If testing locally, restart the Next.js app.
+
+---
+
+Need help? Reach out at [founders@hymalaia.app](mailto:founders@hymalaia.app) or join our [Slack](https://join.slack.com/t/hymalaia-dot-app/shared_invite/zt-2twesxdr6-5iQitKZQpgq~hYIZ~dv3KA) or [Discord](https://discord.com) communities.

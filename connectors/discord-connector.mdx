@@ -1,0 +1,57 @@
+---
+title: Discord Connector
+description: Access knowledge from your Discord Messages
+---
+
+## How it works  
+The Discord connector indexes **all channels** for **all servers (guilds)** mentioned.
+
+---
+
+## Setting up a Bot User  
+
+### 1. Create the Application  
+- Go to [Discord Developer Portal](https://discord.com/developers/applications)
+- Click **"New Application"**
+- Name your application and click **"Create"**
+
+### 2. Configure the Bot  
+- Go to the **"Bot"** tab
+- Enable **"Public Bot"** (optional, allows others to invite it)
+- Enable **"MESSAGE CONTENT INTENT"** under Privileged Gateway Intents
+- Click **"Copy"** to save the Bot Token  
+  > 🔁 If lost, you can **Reset Token**
+
+---
+
+## Inviting the Bot to Server(s)
+
+1. Go to your application at [Discord Developer Portal](https://discord.com/developers/applications)
+2. Navigate to the **"Installation"** tab
+3. Enable **Guild Install** under Installation Contexts
+4. Under **Scopes**, add:
+   - `bot`
+5. Under **Permissions**, enable:
+   - `Manage Messages`
+   - `Read Message History`
+   - `View Channels`
+6. Use the **Discord-generated link** to invite the bot to your server  
+   > Make sure you have **"Manage Server"** permission  
+7. Open the invite link in your browser and add the bot to your server(s)
+
+---
+
+## Indexing
+
+1. Navigate to the **Connector Dashboard**
+2. Select the **Discord Connector**
+3. Under **Credentials**, enter the **Bot Token** (from setup step 2)
+4. Provide the **Server IDs**  
+   > To get a server ID:  
+   > Right-click the server name (top-left) → **Copy Server ID**
+5. Provide **Channel Names** (optional)  
+   > To get a channel name:  
+   > Click ⚙️ next to the channel → Overview section
+6. (Optional) Set a **Start Date** (`YYYY-MM-DD`) to index messages after this date
+
+Once configured, the connector will index all messages from the specified channels and servers where the bot is present.

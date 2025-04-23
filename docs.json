@@ -1,55 +1,156 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "Hymalaia Documentation",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#0224c4",
+    "light": "#4361FF",
+    "dark": "#001B9C"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/hymalaia.ico",
   "navigation": {
     "tabs": [
       {
         "tab": "Guides",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Getting Started",
             "pages": [
               "introduction",
               "quickstart",
-              "development"
+              "resourcing",
+              "hymalaia-chrome-extension"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Connectors",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "pages": [
-              "api-reference/introduction"
+              "connectors/overview",
+              {
+                "group": "Connectors",
+                "icon": "plug",
+                "pages": [
+                  "connectors/airtable",
+                  "connectors/asana-connector",
+                  "connectors/bookStack-connector",
+                  "connectors/clickUp-connector",
+                  "connectors/confluence-connector",
+                  "connectors/discourse-connector",
+                  "connectors/document360-connector",
+                  "connectors/dropbox-connector",
+                  "connectors/discord-connector",
+                  "connectors/egnyte-connector",
+                  "connectors/file-connector",
+                  "connectors/fireflies-connector",
+                  "connectors/freshdesk-connector",
+                  "connectors/gitHub-connector",
+                  "connectors/gitLab-connector",
+                  "connectors/gong-connector",
+                  "connectors/gitBook-connector",
+                  {
+                    "group": "Gmail Connector",
+                    "pages": [
+                      "connectors/gmail-connector",
+                      "connectors/oauth-setup",
+                      "connectors/service-account-connector"
+                    ]
+                  },
+                  {
+                    "group": "Google Drive Connector",
+                    "pages": [
+                      "connectors/google-drive-connector",
+                      "connectors/google-drive-OAuth-setup",
+                      "connectors/service-account-setup-drive"
+                    ]
+                  },
+                  "connectors/google-sites-connector",
+                  "connectors/google-storage-connector",
+                  "connectors/guru-connector",
+                  "connectors/hubSpot-connector",
+                  "connectors/highspot-connector",
+                  "connectors/jira-connector",
+                  "connectors/linear-connector",
+                  "connectors/notion-connector",
+                  "connectors/oracle-storage-connector",
+                  "connectors/productboard-connector",
+                  "connectors/r2-connector",
+                  "connectors/request-tracker-connector",
+                  "connectors/s3-connector",
+                  "connectors/salesforce-connector",
+                  "connectors/sharepoint-connector",
+                  "connectors/slack-connector",
+                  "connectors/slab-connector",
+                  "connectors/teams-connector",
+                  "connectors/web-connector",
+                  "connectors/zendesk-connector",
+                  "connectors/zulip-connector"
+                ]
+              }
             ]
           },
           {
-            "group": "Endpoint Examples",
+            "group": "Deploy Hymalaia",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              {
+                "group": "Deploy with AWS",
+                "icon": "aws",
+                "pages": [
+                  "deploy/ec2-setup",
+                  "deploy/eks-setup",
+                  "deploy/ecs-setup"
+              ]
+              },
+              "deploy/gcp-setup",
+              "deploy/azure-setup",
+              "deploy/digital-ocean-setup"
+            ]
+          },
+          {
+            "group": "Auth",
+            "pages": [
+              "auth/basic-auth-setup",
+              "auth/google-oauth-setup",
+              "auth/oidc-saml-setup"
+            ]
+          },
+          {
+            "group": "Enterprise",
+            "pages": [
+                "enterprise/enterprise-edition-overview",
+                "enterprise/enterprise-edition-configuration",
+                "enterprise/theming",
+                "enterprise/bring-your-own-analytics",
+                "enterprise/permissioning",
+                {
+                  "group": "Curator",
+                  "pages": [
+                    "enterprise/curator-role-overview",
+                    "enterprise/curator-setup-example",
+                    "enterprise/curator-example-1"
+                  ]
+                }
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/creating-assistants",
+              "guides/llm-providers",
+              "guides/embedding-models",
+              "guides/agent-search"
+            ]
+          },
+          {
+            "group": "Tools",
+            "pages": [
+              "tools/tools-overview",
+              "tools/custom-tools"
+            ]
+          },
+          {
+            "group": "Backend APIs",
+            "pages": [
+              "backend-APIs/ingestion-api-guide"
             ]
           }
         ]
@@ -59,25 +160,25 @@
       "anchors": [
         {
           "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
+          "href": "https://docs.hymalaia.app/",
           "icon": "book-open-cover"
         },
         {
           "anchor": "Community",
-          "href": "https://mintlify.com/community",
+          "href": "https://hymalaia.com/community",
           "icon": "slack"
         },
         {
           "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
+          "href": "https://hymalaia.com/blog",
           "icon": "newspaper"
         }
       ]
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/logo-full.png",
+    "dark": "/logo/logo-full.png"
   },
   "navbar": {
     "links": [
@@ -89,7 +190,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://qa.hymalaia.net/"
     }
   },
   "footer": {

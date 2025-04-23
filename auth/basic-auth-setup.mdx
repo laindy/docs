@@ -1,0 +1,59 @@
+---
+title: 'Basic Auth Setup'
+description: 'How to set up Hymalaia with username/password authentication'
+icon: 'shield'
+---
+
+## Basic Auth Setup
+
+This guide explains how to set up Hymalaia with basic username/password authentication. While this is the easiest way to get started, we **recommend using Google OAuth, OIDC, or SAML** for production environments.
+
+If you’re unsure which auth approach fits best for your organization, feel free to [reach out to us](mailto:support@hymalaia.app) — we’re happy to help.
+
+---
+
+## 🛠️ Environment Variables
+
+To enable basic authentication, set the following in your `.env` file:
+
+```
+AUTH_TYPE=basic
+```
+
+Once you've updated your environment and restarted Hymalaia, you should see a **Sign Up** screen when you visit the app.
+
+> ✅ If you don’t want to require email verification, that’s all you need to do!
+
+---
+
+## 📧 Email Verification (Optional)
+
+To require users to verify their email before accessing Hymalaia, add these additional values to your `.env`:
+
+```
+AUTH_TYPE=basic
+REQUIRE_EMAIL_VERIFICATION=true
+
+SMTP_USER=noreply@hymalaia.app
+SMTP_PASS=<PASSWORD_FOR_THE_EMAIL_ABOVE>
+
+# Only needed if not using a Google-powered email account
+SMTP_SERVER=<YOUR_SMTP_SERVER>
+SMTP_PORT=587
+```
+
+Once configured, Hymalaia will send a verification email with a **"link to verify"** to each new user. They won’t be able to use Hymalaia until their email is verified.
+
+> If you're using a Gmail-powered account, you’ll need to enable access for less secure apps or configure an [App Password](https://support.google.com/accounts/answer/185833).
+
+---
+
+## 🧪 What You'll See
+
+After setting this up and restarting Hymalaia, you’ll be greeted with the following screen:
+
+![Signup Screen](https://docs.hymalaia.app/basic_auth_signup_screen.png)
+
+---
+
+Need help? [Check the full guide here](https://docs.hymalaia.app/basic_auth)

@@ -1,0 +1,67 @@
+---
+title: Bring Your Own Analytics
+description: Integrate your preferred analytics provider with Hymalaia using a simple configuration process.
+---
+
+As part of the Enterprise Edition, you can integrate your own analytics provider into Hymalaia. This enables features like:
+
+- Session replays  
+- Usage metrics  
+- Behavior tracking  
+
+You can use tools you're already familiar with (e.g., PostHog, Amplitude, Mixpanel, etc.).
+
+---
+
+## Setup Instructions
+
+To enable custom analytics:
+
+### 1. Set Environment Variable
+
+Set the `CUSTOM_ANALYTICS_SECRET_KEY` to a secure, random string:
+
+```bash
+export CUSTOM_ANALYTICS_SECRET_KEY=2uIfMPVgHCTD57HU
+```
+
+> 💡 Save this key temporarily — you’ll need it in step 4.
+
+### 2. Re-deploy Hymalaia
+
+Apply the new environment variable by re-deploying your Hymalaia instance.
+
+### 3. Open the Admin Panel
+
+Navigate to the **Custom Analytics** tab in the admin interface.
+
+### 4. Add Your Analytics Snippet
+
+Paste your analytics provider’s JavaScript snippet into the provided field.
+
+- This snippet is typically added inside `<head>` tags in a traditional web app.
+- **Important**: The `<script>` tags **must be removed** before pasting into Hymalaia.
+- Use the same `CUSTOM_ANALYTICS_SECRET_KEY` you set in step 1 when prompted.
+
+---
+
+## Example
+
+Here’s an example of a script snippet you might receive from [PostHog](https://posthog.com/docs/libraries/js):
+
+> **❌ Don't paste this:**
+
+```html
+<script>
+  !function(t,e){...}</script>
+```
+
+> **✅ Paste only this:**
+
+```js
+!function(t,e){...}
+```
+
+---
+
+If you need help integrating your provider or want to confirm compatibility, reach out at [founders@hymalaia.app](mailto:founders@hymalaia.app) or join our [Slack](https://join.slack.com/t/hymalaia-dot-app/shared_invite/zt-2twesxdr6-5iQitKZQpgq~hYIZ~dv3KA) or [Discord](https://discord.com) communities.

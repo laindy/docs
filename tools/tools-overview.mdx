@@ -1,0 +1,46 @@
+---
+title: Tools Overview
+description: How to use tools with Hymalaia.
+---
+
+# Tools Overview
+
+Hymalaia supports the use of **tools** to extend the capabilities of your assistants. Tools allow assistants to:
+
+- 🔍 **Fetch external information**  
+  (e.g. query databases, call APIs, search the internet)
+- 🛠️ **Perform actions**  
+  (e.g. send messages, update records, trigger automations)
+- 🎨 **Generate content**  
+  (e.g. create images, plots, or summaries)
+
+---
+
+## Built-in Tools
+
+By default, Hymalaia provides three built-in tools:
+
+### 1. `SearchTool`  
+This is the **core tool** in Hymalaia. When added to an assistant, it enables searching across all connected data sources via Connectors.
+
+> ✅ This is the **only tool enabled** by default for the Hymalaia assistant.
+
+---
+
+### 2. `ImageGenerationTool`  
+Leverages **DALL·E 3** to generate images from text prompts.
+
+**Use cases:**
+- Marketing visuals
+- UI mockups
+- Concept art
+
+---
+
+### 3. `InternetSearchTool`  
+Uses **Bing** to search the web.
+
+> 🔧 To enable this tool, set the following environment variable in your deployment:
+
+```bash
+BING_API_KEY=<your-bing-api-key>

@@ -1,0 +1,71 @@
+---
+title: Curator Role Overview
+description: Learn how to delegate group-level administration using the Curator role in Hymalaia Enterprise Edition.
+---
+
+The **Curator** role is available in Hymalaia Enterprise Edition.  
+It enables group-level administration for large organizations by delegating data management to trusted users within specific groups.
+
+Curators are essentially **group-level admins**.
+
+---
+
+## Curator Role Capabilities
+
+Curators can manage resources that are specific to the groups they curate. Their capabilities include:
+
+### ✅ Add and Remove Users
+
+- Add and remove **Basic** users from their curated group(s).
+
+### ✅ Create and Manage Credentials
+
+- Create credentials for connectors that belong to the group(s) they curate.
+
+### ✅ Create and Manage Connectors
+
+- Set up connectors that belong **exclusively** to the group(s) they manage.
+
+### ✅ Create and Manage Document Sets
+
+- Build document sets tied to their group(s).
+- Add connectors they curate to those document sets.
+- Add/remove **public** connectors from document sets they curate.
+
+### ✅ Create and Manage Personas
+
+- Set up and maintain personas that belong exclusively to the group(s) they curate.
+
+---
+
+## Curator Role Restrictions
+
+Curators do not have unrestricted admin access. Their role is scoped to their curated groups and comes with the following limitations:
+
+### ❌ Cannot Edit Cross-Group Objects
+
+- If an object belongs to another group that a Curator doesn’t curate, they **cannot edit it**.
+- They **can still view** the object.
+- They **can add/remove** it from document sets they curate or remove it from the group they curate.
+
+### ❌ Cannot Create Public Objects
+
+- Curators cannot create public objects (connectors, credentials, document sets).
+- They **can** add or remove public objects from curated sets or groups.
+
+### ❌ Must Attach Objects to a Group
+
+- Curators **must** attach any object they create to a group they curate.
+- Unattached objects are not visible or manageable to them, so this is disallowed.
+
+---
+
+## Global Curators
+
+**Global Curators** are identical to regular Curators, except:
+
+- They are **automatically** considered Curators for **all groups** they are members of.
+
+---
+
+Need help setting up your Curator roles? Check out [Curator Setup Examples](/enterprise_edition/curator-setup-examples) or reach out at [founders@hymalaia.app](mailto:founders@hymalaia.app).

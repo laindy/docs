@@ -1,0 +1,69 @@
+---
+title: S3 Connector
+description: Access documents stored in Amazon S3 buckets
+---
+
+## How it works
+
+- Pulls in all documents from a specified Amazon S3 bucket
+- Supports formats such as **PDF, DOC, DOCX, TXT**, and more
+- Documents are updated **every 1 day**
+
+---
+
+## Setting up
+
+### Authorization
+
+1. Log into your **AWS Management Console**
+2. Go to the **IAM** dashboard
+3. In the left sidebar:
+   - Click **Users**
+   - Then click **Create user**
+
+4. Set a name (e.g., `HymalaiaS3Connector`) and click **Next**
+5. Under “Permissions”:
+   - Choose **Attach policies directly**
+   - Search and select **AmazonS3ReadOnlyAccess**
+   - Click **Next**, then **Create user**
+
+6. Select the user you created
+7. Click **Create access key**
+   - Choose **Third-party service**
+   - Acknowledge the warning and click **Next**
+   - Optionally set a description, then **Create access key**
+   - Copy the **Access Key ID** and **Secret Access Key**  
+   > ⚠️ You won’t be able to view the secret key again
+
+---
+
+## Indexing
+
+1. Go to the **Admin Dashboard**
+2. Select the **S3 Connector**
+
+### Step 1: Provide AWS credentials
+
+You can provide:
+
+- **AWS Access Key ID**
+- **AWS Secret Access Key**
+- Optionally, a **Profile Name** (used if no access key is set)
+
+If none are provided, the connector will try using the default AWS credentials on the environment.
+
+### Step 2: Specify your S3 bucket
+
+- Enter the **S3 bucket name** you want to index
+- Click **Connect** to begin indexing
+
+> ✅ You can add more buckets using the same credentials
+
+---
+
+## Understanding S3 Structure
+
+Amazon S3 organizes data into **buckets**, each containing unlimited **objects** (files).  
+Think of a bucket as a root directory and each object as a file within it.
+
+For more details, visit the [Amazon S3 documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html).

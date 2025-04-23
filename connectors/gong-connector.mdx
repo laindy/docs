@@ -1,0 +1,45 @@
+---
+title: Gong Connector
+description: Access the latest call transcripts from Gong
+---
+
+## How it works
+
+The **Gong Connector** imports and indexes **transcripts of calls** recorded via [Gong.io](https://www.gong.io).
+
+It indexes:
+- **Call title**
+- **Call description**
+- **Transcript contents**
+
+> 🕒 New transcripts are pulled **every 10 minutes**.
+
+## Setting up
+
+### Authorization
+
+To authorize access to Gong:
+
+1. Log in to your **Gong Admin** account
+2. Navigate to **Company Settings** (top right menu)
+3. Under the **Ecosystem** section, select **API**
+4. Click on **API KEYS** (next to "Integrations")
+5. Click **Get API Key**
+6. Note down:
+   - **Access Key**
+   - **Access Key Secret**
+
+> 🔐 These credentials are required to allow Hymalaia to pull call transcripts.
+
+### Indexing
+
+1. Go to the **Hymalaia Admin Dashboard**
+2. Select **Add Connector** and choose the **Gong** tile
+3. Enter your:
+   - **Access Key**
+   - **Access Key Secret**
+4. (Optional) Add specific **workspaces** to index  
+   > Leave empty to index **all workspaces**
+5. Click **Connect**
+
+Hymalaia will begin indexing your Gong call transcripts automatically.

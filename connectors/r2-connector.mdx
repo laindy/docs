@@ -1,0 +1,65 @@
+---
+title: R2 Connector
+description: Access documents stored in Cloudflare R2 buckets
+---
+
+## How it works
+
+This connector imports documents from a specified **Cloudflare R2** bucket. Supported formats include:
+
+- PDF
+- DOC / DOCX
+- TXT
+- ...and more
+
+> Documents are updated every **1 day**.
+
+---
+
+## Setting up
+
+### Authorization
+
+1. Log into your [Cloudflare Dashboard](https://dash.cloudflare.com/)
+2. Navigate to **R2** in the sidebar
+3. Click **Manage R2 API Tokens**
+4. Click **Create API Token**
+5. Give the token a name (e.g., `HymalaiaR2Connector`)
+6. Assign it **Object Read Only** permissions
+7. Click **Create API Token**
+8. Copy your:
+   - **Access Key ID**
+   - **Secret Access Key** (shown only once!)
+9. To find your **Account ID**, go to the **Overview** page — it's visible in the URL or listed on that page
+
+---
+
+## Indexing
+
+1. Navigate to the **Admin Dashboard**
+2. Select the **R2 Connector**
+
+### Step 1: Authenticate
+
+- Enter your:
+  - R2 **Access Key ID**
+  - R2 **Secret Access Key**
+  - **Account ID**
+- Click **Update** to save
+
+### Step 2: Select bucket
+
+- Enter the **R2 bucket** you wish to index
+- Click **Connect** to begin indexing
+
+---
+
+## Understanding R2 Structure
+
+Cloudflare R2 works similarly to Amazon S3:
+
+- A **bucket** is like a folder
+- It contains unlimited **objects** (files)
+
+For more info, refer to the [Cloudflare R2 documentation](https://developers.cloudflare.com/r2/).
+

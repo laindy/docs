@@ -1,0 +1,104 @@
+---
+title: 'Google OAuth Setup'
+description: 'How to set up user login via Google OAuth in Hymalaia'
+icon: 'google'
+---
+
+## Setting up the Google Cloud App
+
+Create a Google project: [Google Cloud Console](https://console.cloud.google.com/projectcreate)
+
+## Enabling the People API
+
+Enable the [Google People API](https://console.cloud.google.com/apis/library/people.googleapis.com). Make sure the correct project is selected.
+
+## Setting up the OAuth Consent Screen
+
+1. Go to **APIs & Services** in the left sidebar.
+2. Select **OAuth Consent Screen**.
+
+**Choose user type:**
+- Choose **Internal** if your organization uses Google Workspace.
+- Otherwise, choose **External**.
+
+On the next page:
+- **App name:** `Hymalaia` (or any name you prefer)
+- **User support email:** Your email (or `founders@hymalaia.app`)
+- **App logo:** Optional (use the Hymalaia logo or leave blank)
+- **Developer contact information:** Your email (or `founders@hymalaia.app`)
+
+Leave optional fields blank and click **SAVE AND CONTINUE**.
+
+Skip Scopes and Test users sections.
+
+## Setting up Credentials
+
+1. Go to **Credentials** in the sidebar.
+2. Click **+ CREATE CREDENTIALS** → **OAuth client ID**.
+3. Select **Web application** and name it `Hymalaia`.
+4. Set **Authorized JavaScript origins**:
+
+```txt
+http://localhost:3000
+https://<WEB_DOMAIN>  // e.g. https://www.hymalaia.app
+```
+
+5. Set **Authorized redirect URIs**:
+
+```txt
+http://localhost:3000/auth/oauth/callback
+https://<WEB_DOMAIN>/auth/oauth/callback
+```
+
+Click **CREATE** and save the **Client ID** and **Client Secret**.
+
+## Turning on OAuth in Hymalaia
+
+OAuth is enabled using the following environment variables:
+
+```env
+AUTH_TYPE=google_oauth
+OAUTH_CLIENT_ID=<your client id>
+OAUTH_CLIENT_SECRET=<your client secret>
+```
+
+If in production, also set:
+
+```env
+WEB_DOMAIN=https://<your-domain>
+```
+
+### Non-Containerized Setup
+
+Set the above environment variables when running Hymalaia processes.
+
+- Backend API uses the variables.
+- Frontend queries the API to determine the auth setting.
+
+### Docker Compose
+
+Create a `.env` file in `hymalaia/deployment/docker_compose/` with the variables:
+
+```env
+AUTH_TYPE=google_oauth
+OAUTH_CLIENT_ID=<your client id>
+OAUTH_CLIENT_SECRET=<your client secret>
+WEB_DOMAIN=https://<your-domain>
+```
+
+### Kubernetes
+
+Kubernetes assumes OAuth is required in production.
+
+Replace the `REPLACE-THIS` placeholders in your `secrets.yaml` file with the **base64-encoded** client ID and client secret.
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hymalaia-oauth-secret
+  namespace: hymalaia
+stringData:
+  OAUTH_CLIENT_ID: <base64-client-id>
+  OAUTH_CLIENT_SECRET: <base64-client-secret>
+```

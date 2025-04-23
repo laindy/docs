@@ -1,0 +1,75 @@
+---
+title: Slack Connector
+description: Access knowledge from your Slack Messages
+---
+
+## How it works
+
+- Indexes all **public channels** in your Slack workspace
+- ⚠️ **Private channel** support coming soon  
+  (via adding the Hymalaia Slack Bot to those channels)
+
+---
+
+## Setting up
+
+### Authorization
+
+> ⚠️ You must be an **admin** of the Slack workspace to proceed.
+
+1. Go to [Slack API Apps](https://api.slack.com/apps)
+2. Click **Create New App** (top right)
+3. Choose **From an app manifest**
+4. Select your **Slack workspace** and click **Next**
+5. In the **YAML** tab, paste the following manifest:
+
+```yaml
+display_information:
+  name: HymalaiaConnector
+  description: ReadOnly Connector for indexing Hymalaia
+features:
+  bot_user:
+    display_name: HymalaiaConnector
+    always_online: false
+oauth_config:
+  scopes:
+    bot:
+      - channels:history
+      - channels:read
+      - groups:history
+      - groups:read
+      - channels:join
+      - im:history
+      - users:read
+      - users:read.email
+      - usergroups:read
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false
+```
+
+6. Click **Create**
+7. In the app page, go to **OAuth & Permissions** (under Features)
+8. Copy the **Bot User OAuth Token**
+
+---
+
+## Indexing
+
+1. Go to the **Connector Dashboard**
+2. Select the **Slack Connector**
+3. Under **Step 1: Provide Credentials**, paste:
+   - The **Bot User OAuth Token**
+   - Your **Workspace ID**
+
+> 📝 Your Workspace ID can be found in your Slack settings or URL.
+
+4. Click **Connect**
+
+> ⏳ The initial indexing will pull all public messages  
+  (may take longer than subsequent updates)
+
+---
+
+Once connected, Hymalaia will make your Slack workspace's conversations easily searchable!

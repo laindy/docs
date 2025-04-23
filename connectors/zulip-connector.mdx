@@ -1,0 +1,46 @@
+---
+title: Zulip Connector
+description: Capture discussions from Zulip Streams and Topics
+---
+
+## How it works
+
+- The **Zulip Connector** pulls in all **streams** and **topics** based on the permissions assigned to the Zulip bot user.
+  
+---
+
+## Setting up
+
+### Authorization
+
+Hymalaia interfaces with Zulip using a Zulip Bot, which is authenticated via the `zuliprc` config format. For more context directly from Zulip, refer to the following docs:
+
+- [Running Bots](https://zulip.com/api/running-bots)
+- [Configuring Python Bindings](https://zulip.com/api/configuring-python-bindings)
+
+### Steps to Create a Zulip Bot:
+
+1. **Create a Zulip Bot**.
+2. Copy the **Bot authentication info** (the contents of the `zuliprc` file). 
+
+   Example of the authentication info:
+   ![ZulipRC Example](image_path)
+
+3. Keep the copied `zuliprc` information for the next step.
+
+---
+
+## Indexing
+
+1. Navigate to the **Admin Dashboard** and select the **Zulip Connector**.
+2. In Step 1, paste the copied `zuliprc` value.
+3. Grab your **Zulip Realm/URL** information (shown below):
+
+   Example:
+   ![ZulipRealmURL Example](image_path)
+
+4. In Step 2, provide the **Realm** and **URL** values.
+
+---
+
+Once configured, the Zulip Connector will start indexing discussions from Zulip Streams and Topics.

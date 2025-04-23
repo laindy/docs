@@ -1,0 +1,59 @@
+---
+title: Jira Connector
+description: Sync and search Jira issues and project updates with Hymalaia
+---
+
+## How it works
+
+The Jira connector pulls in all tickets from specified projects **every 10 minutes**.
+
+For each issue, it collects:
+
+- **Title**
+- **Description**
+- **Common fields** (assignee, reporter, status, etc.)
+- **Custom fields**
+- **Comments**
+
+---
+
+## Setting up
+
+### Authorization
+
+- **Jira Cloud**: Follow [this guide](https://developer.atlassian.com/cloud/jira/platform/oauth-2-3LO-apps/) to obtain an **Access Token**.
+- **Jira Server**: Follow [this guide](https://developer.atlassian.com/server/jira/platform/oauth/) to obtain a **Personal Access Token**.
+
+---
+
+## Indexing
+
+1. Go to the **Admin Dashboard** in Hymalaia.
+2. Select the **Jira Connector**.
+
+### For Jira Cloud:
+
+- Enter your **Access Token** and the **Username** it's associated with.
+
+### For Jira Server:
+
+- Enter your **Personal Access Token**.
+
+---
+
+## Selecting Projects to Index
+
+- For each Jira project you want to index, provide the **URL to any page within the project**.
+- Optionally, specify **users whose comments should be excluded** (e.g., bots).
+
+```txt
+Example:
+Project URL: https://yourcompany.atlassian.net/browse/PROJECTKEY
+Ignore Comments from: jira-bot@example.com, deploy-bot@example.com
+```
+
+### Start Indexing
+
+Click **Connect** to start syncing!
+
+> From now on, Hymalaia will index your Jira tickets every 10 minutes.

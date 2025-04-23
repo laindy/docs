@@ -1,0 +1,109 @@
+---
+title: "Deploy on Azure"
+description: Setup Hymalaia on Azure
+icon: 'microsoft'
+---
+
+Using an Azure Virtual Machine is the recommended way to deploy Hymalaia on Azure. It is simple and should meet the performance needs of 90% of organizations looking to use Hymalaia. The steps are very similar to deploying on AWS EC2. Before we get started, make sure you have an account with Azure and have the necessary permissions to create a VM instance.
+
+Feel free to reach out to us via the links on our Contact Us page for more individual help.
+
+## Getting an Instance
+
+Steps to create a VM instance from Azure Cloud Console:
+
+1. Go to the Azure Console. Click on the **Create** option in the **Virtual machine** section.
+2. Select an existing subscription/resource group or create a new one under your organization.
+3. For instance configuration for Hymalaia, we recommend at least **16GB of RAM, 4-8vCPU cores, and 500GB of disk** for a small-mid sized organization (< 5000 users). The **D4s_v3** series is a good starting point.
+4. Make sure to allow HTTPS traffic in the firewall settings and valid scopes for the instance.
+5. Choose **Ubuntu Server** as your operating system.
+
+## Pointing your Domain to the Instance
+
+1. Grab the **External IP address** of your instance from the Azure Console.
+2. Go to your DNS provider (e.g., GoDaddy) and create two DNS entries:
+    - One for `@` pointing to your external IP.
+    - Another for `www` also pointing to your external IP.
+
+If you don’t have a domain to use yet, then you can either buy one or skip HTTPS for now.
+
+## Installing Dependencies
+
+To install necessary dependencies on Ubuntu Server:
+
+```
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin git
+```
+
+## Starting up Hymalaia
+
+1. Clone the Hymalaia repo:
+
+```
+git clone https://github.com/hymalaia-dot-app/hymalaia.git
+```
+
+2. Set the environment variables:
+
+```
+cd hymalaia/deployment/docker_compose
+touch .env
+touch .env.nginx
+```
+
+3. In the `.env` file, fill in the following template:
+
+```
+WEB_DOMAIN=<YOUR_DOMAIN>
+
+VALID_EMAIL_DOMAINS=<YOUR_COMPANIES_EMAIL_DOMAIN>
+AUTH_TYPE=basic
+# REQUIRE_EMAIL_VERIFICATION=true
+# SMTP_USER=<GMAIL_ACCOUNT_EMAIL>
+# SMTP_PASS=<GMAIL_ACCOUNT_PASSWORD>
+
+# AUTH_TYPE=google_oauth
+# GOOGLE_OAUTH_CLIENT_ID=
+# GOOGLE_OAUTH_CLIENT_SECRET=
+# SECRET=<UUID>
+
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+```
+
+4. In the `.env.nginx` file:
+
+```
+DOMAIN=<YOUR_DOMAIN>
+```
+
+5. Run the SSL script:
+
+```
+./init-letsencrypt.sh
+```
+
+> If you're skipping HTTPS setup, use the command below instead:
+
+```
+docker-compose -f docker-compose.dev.yml -p hymalaia-stack up -d --build --force-recreate
+```
+
+## Done! 🎉
+
+Wait a few minutes. You can monitor progress using:
+
+```
+docker logs hymalaia-stack-api_server-1 -f
+```
+
+Once you see `INFO: Application startup complete.`, you're all set!

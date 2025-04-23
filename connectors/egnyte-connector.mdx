@@ -1,0 +1,47 @@
+---
+title: Egnyte Connector
+description: Access files stored in Egnyte
+---
+
+## How it works
+
+The Egnyte connector pulls in files stored in Egnyte. The connector indexes:
+
+- **File name**
+- **File type**
+- **File contents**
+
+New files are automatically pulled every **10 minutes**.
+
+## Setting up
+
+### Egnyte Application + Hymalaia Environment Variables
+
+> 🛠️ This step is only required if you’re **self-hosting Hymalaia**. If you’re using **Hymalaia Cloud**, you can skip this section.
+
+1. Create an Egnyte Application  
+   - Refer to the [Egnyte API documentation](https://developers.egnyte.com/docs) for more information.
+
+2. Set the following environment variables in your Hymalaia instance:
+
+```bash
+EGNYTE_DOMAIN=your_egnyte_subdomain # e.g., "app4hymalaia"
+EGNYTE_CLIENT_ID=your_client_id
+EGNYTE_CLIENT_SECRET=your_client_secret
+```
+
+3. Restart your Hymalaia instance to apply the environment variables.
+
+### Indexing
+
+1. In the Hymalaia UI, go to the Admin Dashboard
+
+2. Select the Egnyte Connector
+
+3. Click Create New to begin the OAuth flow
+
+4. Once authorized, you'll be redirected back to Hymalaia
+
+5. Optionally, specify a folder path to index
+
+6. Click Connect to start indexing your Egnyte files

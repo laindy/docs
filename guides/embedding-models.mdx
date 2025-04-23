@@ -1,0 +1,93 @@
+---
+title: Embedding Models
+description: A comprehensive guide to selecting and using embedding models in your application.
+icon: "brain"
+---
+
+Hymalaia supports integration with several popular embedding model providers. This flexibility allows you to choose the model that best aligns with your performance, language, and efficiency needs.
+
+## OpenAI Models
+
+### `text-embedding-3-small`
+- **Description:** Newer, more efficient embedding model
+- **Strengths:** Great balance between performance and efficiency
+
+### `text-embedding-3-large`
+- **Description:** Large embedding model in the OpenAI lineup
+- **Strengths:** Best performance among OpenAI's offerings
+
+#### OpenAI Credentials Setup
+1. Sign up at [OpenAI](https://platform.openai.com/).
+2. Generate an API key.
+3. Enter your OpenAI key in the Hymalaia Admin Panel.
+
+---
+
+## Cohere Models
+
+### `embed-english-v3.0`
+- **Description:** Optimized for English-language content
+- **Strengths:** Strong performance for most English use cases
+
+### `embed-english-light-v3.0`
+- **Description:** Lightweight version for faster performance
+- **Strengths:** Efficient for simpler or high-volume tasks
+
+#### Cohere Credentials Setup
+1. Create an account on [Cohere](https://cohere.com/).
+2. Follow their documentation to obtain an API key.
+3. Use the API key in Hymalaia to configure embedding.
+
+---
+
+## Voyage Models
+
+### `voyage-large-2-instruct`
+- **Description:** Instruction-tuned, high-performing embedding model
+
+### `voyage-light-2-instruct`
+- **Description:** Lighter model with a performance/efficiency trade-off
+
+#### Voyage Credentials Setup
+1. Sign up at [Voyage AI](https://voyageai.com/).
+2. Follow their integration guide to get your API key.
+3. Enter your Voyage API key in Hymalaia.
+
+---
+
+## Vertex AI (Google)
+
+### `gecko`
+- **Description:** Google's powerful and efficient embedding model
+- **Note:** Requires Google Cloud Platform (GCP) setup
+
+#### Vertex AI Credentials Setup
+1. Create a [GCP account](https://console.cloud.google.com/).
+2. Create a new project.
+3. Enable the Vertex AI API.
+4. Create a service account with Vertex AI permissions.
+5. Generate a JSON key for that service account.
+6. Upload the JSON key in Hymalaia.
+
+---
+
+## Choosing the Right Model
+
+| Factor               | Recommendation                                                                 |
+|----------------------|---------------------------------------------------------------------------------|
+| **Task Complexity**   | Use larger models like `text-embedding-3-large` or `voyage-large-2-instruct`   |
+| **Language Specificity** | Cohere’s models are ideal for English-specific applications                   |
+| **Performance vs. Efficiency** | Consider `-light` models for faster processing with some trade-offs        |
+| **Setup Complexity** | OpenAI and Cohere are simpler to set up; Gecko requires GCP configuration       |
+
+---
+
+## Best Practices
+
+- **Experiment:** Try different models with your real data to compare results.
+- **Monitor:** Track effectiveness across different use cases.
+- **Update Regularly:** Check for updates or new model versions from providers.
+- **Secure Credentials:** Use the Hymalaia Admin Panel to securely store API keys or upload credentials.
+
+> 📌 **Note:** Always refer to the provider's official documentation for the most accurate and current information.
+

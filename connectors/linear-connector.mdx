@@ -1,0 +1,57 @@
+---
+title: Linear Connector
+description: Sync and search Linear issues with Hymalaia
+---
+
+## How it works
+
+The Linear connector pulls in:
+
+- All **issues**
+- All **associated comments**
+
+> Data is refreshed every **10 minutes**.
+
+---
+
+## Setup
+
+### (Self-Hosted Only) Configure your Linear Application
+
+> ⚠️ **Skip this section** if you're using **Hymalaia Cloud**.
+
+- Create a **Linear Application** from your [Linear Developer settings](https://linear.app/settings/developers).
+- You must be an **admin** of the Linear workspace.
+
+**Set callback URL** to:
+```
+<your-hymalaia-host>/connector/oauth/callback/linear
+```
+
+For example:
+```
+http://localhost:3000/connector/oauth/callback/linear
+```
+
+**Set environment variables** using the Client ID and Signing Secret from Linear:
+
+```env
+LINEAR_CLIENT_ID=your-client-id
+LINEAR_CLIENT_SECRET=your-client-secret
+```
+
+Then **restart** your Hymalaia instance.
+
+---
+
+## Indexing
+
+1. Go to the **Admin Dashboard** in Hymalaia.
+2. Select the **Linear Connector**.
+3. Click **Create New** to start the OAuth flow.
+4. After authorizing the app, you'll be redirected back to Hymalaia.
+5. Select the new credential and click **Continue**.
+6. Enter a name and any permissions info.
+7. Click **Create Connector** to start indexing your issues and comments.
+
+> 🎉 Your Linear workspace is now connected and searchable in Hymalaia!

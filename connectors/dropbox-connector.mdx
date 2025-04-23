@@ -1,0 +1,40 @@
+---
+title: Dropbox Connector (Beta)
+description: Access knowledge from Dropbox
+---
+
+## How it works  
+The Dropbox connector ingests all documents from your Dropbox account into Hymalaia.
+
+- It recursively pulls **all files** from the **root directory**.
+- Pulling from **specific directories is not supported**.
+- The connector **only pulls once upon initialization**.
+- To re-ingest documents, a **new access token** must be generated and the connector must be re-initialized.
+
+## Setting up  
+
+### Authorization  
+1. Visit [Dropbox Developer Console](https://www.dropbox.com/developers/apps)  
+2. Click **Create app**
+3. Choose:
+   - **Scoped access**
+   - **Full Dropbox**
+4. Name the app (e.g., `Hymalaia Connector`) and click **Create app**
+5. Open the **Permissions** tab:
+   - Enable:
+     - `files.content.read`
+     - `sharing.write`
+   - Click **Submit**
+6. Go to the **Settings** tab
+7. Scroll to **OAuth 2** section and click **Generate** to create an **access token**
+
+> ⚠️ Make sure steps 3-5 are complete before generating the token, or the access token will lack the required permissions.
+
+8. Copy the access token  
+   - Refresh the page to regenerate if needed
+
+### Indexing  
+1. In the **Hymalaia UI**, go to the **Admin Dashboard**
+2. Select the **Dropbox Connector**
+3. Enter the **access token**
+4. Click **Connect** to begin indexing your Dropbox files

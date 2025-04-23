@@ -1,0 +1,123 @@
+---
+title: "Deploy on Digital Ocean"
+description: Setup Hymalaia on Digital Ocean
+icon: 'digital-ocean'
+---
+
+You can use a DigitalOcean Droplet to deploy Hymalaia. This is a simple and cost effective way to deploy Hymalaia and should meet the performance needs of smaller organizations looking to use Hymalaia.
+
+Feel free to reach out to us via the links on our Contact Us page for more individual help.
+
+## Getting an Instance
+Create a new Droplet in the Digital Ocean console.
+
+1. Open the Digital Ocean Console and select **Create Droplet**.
+2. Select a region close to your users and a datacenter.
+3. Select a **Docker** image from the **Marketplace** tab.
+4. Choose the size of the Droplet. We recommend at least **16GB RAM**, **4–8 vCPU cores**, and **500GB disk**.
+5. Select additional options as needed and assign your Droplet to a Project.
+6. Click **Create Droplet**.
+
+## Create a Domain Record
+Use `@` to create the record at the root of the domain or enter a hostname to create it elsewhere. A records are for IPv4 addresses only and tell a request where your domain should direct to.
+
+1. Go to the **Networking** section of the Digital Ocean console.
+2. Click **Add Domain**.
+3. Enter your domain name and click **Add Domain**.
+4. Click **Add Record** and select **A**.
+5. Enter the hostname (usually `@`) and the IP address of your Droplet.
+6. Click **Create Record**.
+
+## Pointing your Domain to the Instance
+
+Next, point your domain to the Droplet. To do this, you’ll need to add two records to your DNS and set your Nameservers to Digital Ocean’s. Nameservers control how your website is located based on your domain name.
+
+If you don’t have a domain to use yet, then you can either buy one from a DNS provider like GoDaddy or just skip HTTPS for now.
+
+### Adding DNS Records
+
+1. Grab the **public IP address** of the instance from the Droplet console.
+2. Go to your DNS provider and add two A records:
+   - `@` pointing to your Droplet IP
+   - `www` pointing to your Droplet IP
+
+### Setting Nameservers
+
+Set your nameservers to Digital Ocean’s:
+- `ns1.digitalocean.com`
+- `ns2.digitalocean.com`
+- `ns3.digitalocean.com`
+
+These need to be set in the DNS provider’s console.
+
+## Starting up Hymalaia
+
+Because your Droplet is running Docker, we can use Docker Compose to start up Hymalaia.
+
+1. Access your Droplet via the Droplet Console in DigitalOcean.
+2. Log in as `root` or another user.
+3. Clone the repo:
+
+```bash
+git clone https://github.com/hymalaia-dot-app/hymalaia.git
+```
+
+4. Set the necessary environment variables:
+
+```bash
+cd hymalaia/deployment/docker_compose
+touch .env
+touch .env.nginx
+```
+
+5. In the `.env` file, copy the following:
+
+```env
+WEB_DOMAIN=<YOUR_DOMAIN>
+VALID_EMAIL_DOMAINS=<YOUR_COMPANIES_EMAIL_DOMAIN>
+AUTH_TYPE=basic
+# REQUIRE_EMAIL_VERIFICATION=true
+# SMTP_USER=<YOUR_SMTP_EMAIL>
+# SMTP_PASS=<YOUR_SMTP_PASS>
+
+# AUTH_TYPE=google_oauth
+# GOOGLE_OAUTH_CLIENT_ID=
+# GOOGLE_OAUTH_CLIENT_SECRET=
+# SECRET=<RANDOM_UUID>
+
+GEN_AI_MODEL_PROVIDER=openai
+GEN_AI_MODEL_VERSION=gpt-4
+
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+```
+
+6. In the `.env.nginx` file:
+
+```env
+DOMAIN=<YOUR_DOMAIN>
+```
+
+7. Get the SSL certificate:
+
+```bash
+./init-letsencrypt.sh
+```
+
+8. If skipping HTTPS, run:
+
+```bash
+docker-compose -f docker-compose.dev.yml -p hymalaia-stack up -d --build --force-recreate
+```
+
+Access Hymalaia via the Droplet’s public IP address or the linked domain.
+
+You can monitor the progress:
+
+```bash
+docker logs hymalaia-stack-api_server-1 -f
+```
+
+Wait for: `INFO: Application startup complete.`
+
+Voila, you’re all done! 🎉

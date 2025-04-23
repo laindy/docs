@@ -1,0 +1,81 @@
+---
+title: Agent Search
+description: A guide to use advanced search capability in Hymalaia.
+icon: "robot"
+---
+
+Agent Search is Hymalaia advanced knowledge retrieval system that enables answering complex, multi-faceted questions by intelligently decomposing queries, searching across multiple contexts, and synthesizing comprehensive answers.
+
+Unlike traditional search, Agent Search approaches questions like a knowledgeable colleague would:  
+1. **Decompose and disambiguate**  
+2. **Analyze narrow, well-defined sub-questions**  
+3. **Synthesize and present comprehensive context-rich answers**
+
+> 💡 *Example:* When comparing two products (e.g. Car A vs. Car B), Agent Search will independently explore both, then compare them to form a rich, contextual answer.
+
+---
+
+## Key Features
+
+- **Intelligent Query Decomposition**  
+  Breaks complex questions into precise sub-questions
+
+- **Parallel Search Processing**  
+  Executes multiple analysis threads simultaneously
+
+- **Answer Validation**  
+  Refines and validates responses for accuracy and completeness
+
+---
+
+## Configuration
+
+### Basic Setup
+
+To enable Agent Search in your Hymalaia deployment:
+
+1. Update to the latest version of Hymalaia
+2. Configure knowledge source connections
+3. Set up LLM provider credentials
+4. Enable the **Agent** toggle in the chat interface (with a search-capable assistant)
+
+---
+
+### Advanced Configuration
+
+#### Best Practices & Suggestions
+
+- Don’t hesitate to ask **complex or multi-layered questions**.
+- Try **comparative queries** like:
+  > _“What’s the difference between Solution A and B?”_  
+  Agent Search will separately analyze A and B before comparing.
+- Ask **ambiguous questions** such as:
+  > _“What are the guiding principles for X?”_  
+  The system will use context to clarify what "guiding principles" refers to.
+- Even **simple questions** may benefit from deeper, contextualized answers.
+- **Click on sub-question analyses** — they may provide interesting insights individually.
+
+> ⚠️ It is recommended to assign a **faster/cheaper LLM model** as your *Fast Model*, since Agent Search performs many parallel queries.
+
+---
+
+## Common Issues and Solutions
+
+| Issue                          | Solution                                                                                      |
+|-------------------------------|-----------------------------------------------------------------------------------------------|
+| **Langgraph/Langchain errors** | Ensure server uses Python 3.11 and installs libraries from `backend/requirements.txt`.        |
+| **Rate limits**                | Agent Search may hit rate limits due to parallel queries. Use a provider with higher limits.  |
+| **Timeouts**                   | Timeout thresholds are enforced to avoid blocking. Contact support if these are too strict.   |
+| **High token usage**           | Expect significantly more input/output tokens than with Basic Search.                        |
+
+---
+
+## Summary
+
+Agent Search offers a powerful way to surface deeper insights, especially when working with ambiguous or multi-faceted questions. For best performance:
+
+- Use optimized LLM configurations
+- Expect and account for higher token usage
+- Experiment with your queries to see how well the system synthesizes knowledge
+
+> 💬 Reach out to us on Slack or Discord if you're experiencing issues or want help fine-tuning your setup.
