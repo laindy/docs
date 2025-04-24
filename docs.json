@@ -11,7 +11,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Documentation",
         "groups": [
           {
             "group": "Getting Started",
@@ -89,46 +89,11 @@
             ]
           },
           {
-            "group": "Deploy Hymalaia",
-            "pages": [
-              {
-                "group": "Deploy with AWS",
-                "icon": "aws",
-                "pages": [
-                  "deploy/ec2-setup",
-                  "deploy/eks-setup",
-                  "deploy/ecs-setup"
-              ]
-              },
-              "deploy/gcp-setup",
-              "deploy/azure-setup",
-              "deploy/digital-ocean-setup"
-            ]
-          },
-          {
             "group": "Auth",
             "pages": [
               "auth/basic-auth-setup",
               "auth/google-oauth-setup",
               "auth/oidc-saml-setup"
-            ]
-          },
-          {
-            "group": "Enterprise",
-            "pages": [
-                "enterprise/enterprise-edition-overview",
-                "enterprise/enterprise-edition-configuration",
-                "enterprise/theming",
-                "enterprise/bring-your-own-analytics",
-                "enterprise/permissioning",
-                {
-                  "group": "Curator",
-                  "pages": [
-                    "enterprise/curator-role-overview",
-                    "enterprise/curator-setup-example",
-                    "enterprise/curator-example-1"
-                  ]
-                }
             ]
           },
           {
@@ -159,19 +124,9 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://hyma.mintlify.app/",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://hymalaia.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://hymalaia.com/blog",
-          "icon": "newspaper"
+          "anchor": "Hymalaia Website",
+          "href": "https://hymalaia.com/",
+          "icon": "globe"
         }
       ]
     }
