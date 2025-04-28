@@ -1,0 +1,52 @@
+---
+title: Anthropic
+description: Configure Hymalaia to use different Anthropic Claude models like Claude 3.5 Sonnet.
+---
+
+# Anthropic
+
+Hymalaia supports Claude models from [Anthropic](https://www.anthropic.com/), including the high-performing **Claude 3.5 Sonnet**.
+
+---
+
+## 🔧 Configuration Steps
+
+Setting up Anthropic in Hymalaia is simple:
+
+1. **Get your API Key**
+   - Go to the [Anthropic Console](https://console.anthropic.com/)
+   - Sign in and generate an API key
+
+2. **Configure in Hymalaia**
+   - Open the **Admin Panel**
+   - Navigate to **LLM Providers**
+   - Select **Anthropic**
+   - Paste your API Key into the `API Key` field
+   - Choose your preferred Claude model (e.g., `claude-3.5-sonnet`, `claude-3-opus`, etc.)
+
+<img src="/images/anthropic.png" className="rounded-xl shadow-md mx-auto" />
+
+> ✅ Once saved, Hymalaia will route prompts through the selected Anthropic model.
+
+---
+
+## 💡 Notes
+
+- Claude models are especially strong in **reasoning** and **multi-step tasks**
+- The default recommended model is `claude-3.5-sonnet`
+- Model switching is handled via the [`LiteLLM`](https://github.com/BerriAI/litellm) library for flexibility
+
+---
+
+## ⚠️ Data Policy
+
+Be sure to review Anthropic's [data usage policies](https://www.anthropic.com/legal)  
+Depending on your use case, you may prefer a model or provider with specific retention policies.
+
+---
+
+## 🧠 AnthropicLLMProvider
+
+The integration with Hymalaia is handled internally through `AnthropicLLMProvider`, giving you robust Claude support with minimal setup.
+
+---

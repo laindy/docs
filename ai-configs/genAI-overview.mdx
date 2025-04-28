@@ -1,0 +1,102 @@
+---
+title: GenAI Overview
+description: Overview of the Generative AI functionality and LLM integrations in Hymalaia.
+---
+
+This section gives an overview of the **Generative AI capabilities** in Hymalaia and how **Large Language Models (LLMs)** are integrated into the system.
+
+---
+
+## LLM Options
+
+Hymalaia supports a wide range of **cloud-based** and **self-hosted** LLMs:
+
+### ✅ Cloud Providers Supported:
+
+- OpenAI (e.g., GPT-4, GPT-4o)
+- Anthropic (Claude 3.5 Sonnet)
+- Azure OpenAI
+- HuggingFace
+- Replicate
+- AWS Bedrock
+- Cohere
+- ... and many more.
+
+### 🏠 Self-Hosted Options:
+
+- **Ollama**
+- **GPT4All**
+- Any LLM compatible with **OpenAI’s API format**
+
+> Hymalaia relies on the excellent [`LiteLLM`](https://github.com/BerriAI/litellm) and Langchain libraries to support these integrations.
+
+---
+
+## What are Generative AI (LLM) models used for?
+
+LLMs are used to:
+
+- **Interpret** relevant documents retrieved via search
+- **Extract useful knowledge** from those documents
+- **Generate human-readable answers** to user queries
+
+This is the core of Hymalaia **AI Answering** functionality.
+
+---
+
+## What is the default LLM?
+
+Our **default recommendation** is:
+
+- `gpt-4` (OpenAI)
+- `Claude 3.5 Sonnet` (Anthropic)
+
+Other high-quality recommended options:
+
+- `Azure OpenAI`
+- `Claude via Bedrock`
+- `Self-hosted LLaMA 3.1 70B / 405B`
+
+These provide an excellent balance between quality, latency, and reliability.
+
+---
+
+## Why use a different model?
+
+There are several reasons to **customize your LLM provider**:
+
+- Use a **cheaper or faster model** (e.g., `gpt-4o`)
+- Select a provider with a **more favorable data retention policy**  
+  > _Note_: OpenAI and Azure OpenAI retain logs for **30 days** for misuse monitoring
+- **Self-host** your own model for full **control and flexibility**
+- Choose a **fine-tuned model** for a specific domain (e.g., legal, medical, technical)
+
+> 🔐 Generative AI is the **only part of Hymalaia** that sends data to a third-party service.  
+> You can avoid this by self-hosting a model — but note the potential **performance tradeoffs**.
+
+---
+
+## Hymalaia LLM Configs
+
+To configure LLMs:
+
+- Go to the **Admin Panel > LLMs**
+- Add or edit your model configurations
+
+### ✨ Unique to Hymalaia:
+
+You can **set up multiple LLM providers** and assign them to different **assistants**.  
+This allows you to mix and match models based on:
+
+- Speed
+- Quality
+- Specialization
+- Cost
+
+---
+
+## Next Steps
+
+Check out the following examples for how to configure specific LLM providers, or go to the [Admin Panel](./admin_panel) to get started.
+
+> 🙋 Need help? The Hymalaia team is here — don’t hesitate to reach out!

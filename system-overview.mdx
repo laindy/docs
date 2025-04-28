@@ -1,0 +1,84 @@
+---
+title: System Overview
+description: High-level explanation of Hymalaia system components and data flows.
+---
+
+This page gives you a high-level overview of how Hymalaia works. It’s designed to provide clarity and transparency into the system design so you can use it with confidence.
+
+If you're looking to **customize** Hymalaia or become an **open source contributor**, this is a great place to begin.
+
+---
+
+## System Architecture
+
+<img src="/images/archi.png" className="rounded-xl shadow-md mx-auto" />
+
+Hymalaia can be deployed on a **single instance** or a **container orchestration platform** (e.g., Kubernetes). Regardless of where it's deployed, the **data flow remains consistent**.
+
+- Documents are pulled and processed via **connectors**.
+- These are then stored in **Vespa** or **Postgres**, running in containers within your setup.
+
+### LLM Communication
+
+The **only time-sensitive data that leaves** your system is when Hymalaia makes a request to a **Large Language Model (LLM)** for generating a response.
+
+- All communication with the LLM is **encrypted**.
+- Data persistence policies depend on your **LLM hosting provider**.
+
+> 🕵️ Hymalaia also includes minimal, **anonymous telemetry** to help improve the platform and monitor flaky connectors.  
+> You can **disable telemetry** by setting the following environment variable:
+```env
+DISABLE_TELEMETRY=True
+```
+
+---
+
+## Embedding Flow
+
+<img src="/images/embedding.png" className="rounded-xl shadow-md mx-auto" />
+
+Each document is **split into chunks** (smaller sections) for processing.
+
+Benefits of chunking:
+
+- Only relevant parts are passed to the LLM → **less noise**.
+- **Reduced cost**: LLMs charge per token.
+- **Improved detail retention**: Embedding vectors have limits on how much info they can store.
+
+### Mini-Chunks
+
+Mini-chunks go one step further:
+
+- Create **multiple embedding sizes**.
+- Improve retrieval of both **high-level context** and **fine-grained details**.
+- Can be toggled using environment variables.
+
+> ⚠️ Note: Mini-chunks may **slow down indexing** on low-performance hardware.
+
+### Embedding Model
+
+Hymalaia uses a **state-of-the-art biencoder**, optimized for:
+
+- Running on **CPUs**
+- **Subsecond** document retrieval
+
+---
+
+## Query Flow
+
+<img src="/images/query.png" className="rounded-xl shadow-md mx-auto" />
+
+The **query pipeline** is under constant improvement, adapting new research and open-source techniques.
+
+Everything is configurable:
+
+- Number of documents to retrieve
+- Number of reranked documents
+- Embedding and reranking models
+- Chunk selection passed to the LLM
+
+> ❓Have questions or ideas? Don’t hesitate to reach out to the maintainers.
+
+---
+
+Ready to dive deeper? Explore the [Multilingual Setup](./multilingual_setup) or the [Connector Guide](./connectors) to further customize your Hymalaia deployment.

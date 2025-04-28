@@ -1,0 +1,114 @@
+---
+title: Configuring Hymalaia
+description: 'How to customize your deployment environment.'
+---
+
+## Common Environment Variables
+
+All of the global configuration options that are not built into the UI are set via environment variables. This page contains an exhaustive list of all the options.
+
+There are defaults set in the code so changing/settings these values is not required to use Hymalaia. A few notable settings that are more frequently changed however are the following:
+
+- `AUTH_TYPE` (default value is disabled)
+- `MULTILINGUAL_QUERY_EXPANSION` (you can provide a comma separated list of languages for query rephrasing such as English,French)
+- `LOG_LEVEL` (default is info)
+- `WEB_DOMAIN` (your full url in production, including the protocol- e.g. https://www.hymalaia.com)
+
+## Docker Compose
+
+The preferred approach for Hymalaia is to use the `.env` file at `hymalaia/deployment/docker_compose/.env`. Example:
+
+```env
+# Configures basic email/password based login
+AUTH_TYPE="basic"
+
+# Rephrasing the query into different languages to improve search recall
+MULTILINGUAL_QUERY_EXPANSION="English,Spanish,German"
+
+# Set a cheaper/faster LLM for the flows that are easier (such as translating the query etc.)
+FAST_GEN_AI_MODEL_VERSION="gpt-3.5-turbo"
+
+# Setting more verbose logging
+LOG_LEVEL="debug"
+LOG_ALL_MODEL_INTERACTIONS="true"
+```
+
+## Kubernetes
+
+For Kubernetes, the deployment yaml files includes an Environment ConfigMap. Simply update the values in the file there.
+
+## All Environment Variables
+
+### Auth Settings
+- `AUTH_TYPE`: Controls the authentication method used by Hymalaia.
+- `SESSION_EXPIRE_TIME_SECONDS`
+- `ENCRYPTION_KEY_SECRET`
+- `VALID_EMAIL_DOMAINS`
+- `GOOGLE_OAUTH_CLIENT_ID`
+- `GOOGLE_OAUTH_CLIENT_SECRET`
+- `REQUIRE_EMAIL_VERIFICATION`
+- `SMTP_SERVER`
+- `SMTP_PORT`
+- `SMTP_USER`
+- `SMTP_PASS`
+- `EMAIL_FROM`
+- `NEXT_PUBLIC_FORGOT_PASSWORD_ENABLED`
+
+### Gen AI Settings
+- `GEN_AI_MODEL_PROVIDER`
+- `GEN_AI_MODEL_VERSION`
+- `FAST_GEN_AI_MODEL_VERSION`
+- `GEN_AI_API_KEY`
+- `GEN_AI_LLM_PROVIDER_TYPE`
+- `GEN_AI_MAX_TOKENS`
+- `QA_TIMEOUT`
+- `MAX_CHUNKS_FED_TO_CHAT`
+- `DISABLE_LLM_FILTER_EXTRACTION`
+- `DISABLE_LLM_CHUNK_FILTER`
+- `DISABLE_LLM_CHOOSE_SEARCH`
+- `DISABLE_LLM_QUERY_REPHRASE`
+- `DISABLE_GENERATIVE_AI`
+- `DISABLE_LITELLM_STREAMING`
+- `LITELLM_EXTRA_HEADERS`
+- `TOKEN_BUDGET_GLOBALLY_ENABLED`
+
+### AWS Bedrock Settings
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_REGION_NAME`
+
+### Query Options
+- `DOC_TIME_DECAY`
+- `HYBRID_ALPHA`
+- `EDIT_KEYWORD_QUERY`
+- `MULTILINGUAL_QUERY_EXPANSION`
+- `QA_PROMPT_OVERRIDE`
+
+### Other Services
+- `POSTGRES_HOST`
+- `VESPA_HOST`
+- `WEB_DOMAIN`
+
+### NLP Model Configurations
+- `INDEX_BATCH_SIZE`
+- `EMBEDDING_BATCH_SIZE`
+- `DOCUMENT_ENCODER_MODEL`
+- `DOC_EMBEDDING_DIM`
+- `NORMALIZE_EMBEDDINGS`
+- `ASYM_QUERY_PREFIX`
+- `ENABLE_RERANKING_REAL_TIME_FLOW`
+- `ENABLE_RERANKING_ASYNC_FLOW`
+- `MODEL_SERVER_HOST`
+- `MODEL_SERVER_PORT`
+
+### Miscellaneous
+- `DISABLE_TELEMETRY`
+- `LOG_LEVEL`
+- `LOG_ALL_MODEL_INTERACTIONS`
+- `LOG_VESPA_TIMING_INFORMATION`
+- `LOG_ENDPOINT_LATENCY`
+- `DEFAULT_PERMISSION_DOC_SYNC_FREQUENCY`
+- `SLACK_PERMISSION_DOC_SYNC_FREQUENCY`
+- `GOOGLE_DRIVE_PERMISSION_GROUP_SYNC_FREQUENCY`
+
+[Reference documentation](https://hyma.mintlidy.app/configuration-guide)

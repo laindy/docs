@@ -19,7 +19,25 @@
               "introduction",
               "quickstart",
               "resourcing",
-              "hymalaia-chrome-extension"
+              {
+                "group": "Gen AI Configs",
+                "pages": [
+                  "ai-configs/genAI-overview",
+                  "ai-configs/openAI",
+                  "ai-configs/anthropic",
+                  "ai-configs/azure-openAI",
+                  "ai-configs/vertex-ai",
+                  "ai-configs/huggingface-inference-api",
+                  "ai-configs/ollama",
+                  "ai-configs/fastChat",
+                  "ai-configs/custom-model-server"
+                ]
+              },
+              "hymalaia-chrome-extension",
+              "slack-bot-setup",
+              "configuration-guide",
+              "multilingual-setup",
+              "system-overview"
             ]
           },
           {

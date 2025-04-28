@@ -1,0 +1,92 @@
+# Custom Model Server
+
+Hymalaia can be configured to use a custom model server through REST requests. This guide explains how to set up and integrate your own model server with Hymalaia.
+
+## Overview
+
+Hymalaia supports making requests to arbitrary model servers via REST API endpoints. You can optionally include an access token for authentication. For custom request formats or response handling, you may need to update and rebuild the Hymalaia containers.
+
+## Extending Hymalaia for Your Custom Model Server
+
+To make Hymalaia compatible with your custom model server, you'll need to implement a minimal interface that can support any arbitrary LLM Model Server. The process involves:
+
+1. Updating the model server integration code
+2. Rebuilding the necessary components
+3. Configuring the connection settings
+
+The default implementation provides a reference that you can modify according to your needs.
+
+## Example Implementation: Llama-2-13B-chat-GGML with FastAPI
+
+As a practical example, you can set up Hymalaia with a self-hosted Llama-2-13B-chat-GGML model using a custom FastAPI server.
+
+### Key Components:
+- FastAPI server hosting the model
+- Llama-2-13B-chat-GGML model
+- Custom request/response handling
+
+### Demo Setup
+You can try this implementation using Google Colab for GPU access. However, please note that Colab is not recommended for production deployments.
+
+For detailed implementation steps and code examples, refer to our [Medium blog post](https://medium.com/your-blog-post-link).
+
+## Configuration Steps
+
+1. **Server Setup**
+```yaml
+model_server:
+  type: custom
+  url: "http://your-model-server:port"
+  # Optional authentication token
+  access_token: "your-access-token"
+```
+
+2. **Request Format**
+Customize the request format according to your model server's API:
+```json
+{
+  "prompt": "Your prompt here",
+  "parameters": {
+    "temperature": 0.7,
+    "max_tokens": 500
+    // Add other parameters as needed
+  }
+}
+```
+
+3. **Response Handling**
+Ensure your model server returns responses in a compatible format:
+```json
+{
+  "response": "Model generated text",
+  "metadata": {
+    // Additional response metadata
+  }
+}
+```
+
+## Best Practices
+
+- Implement proper error handling
+- Set up authentication if needed
+- Monitor server performance
+- Configure appropriate timeout values
+- Implement rate limiting if necessary
+
+## Security Considerations
+
+- Use HTTPS for production deployments
+- Implement proper authentication
+- Secure your API endpoints
+- Monitor for unusual activity
+- Regular security updates
+
+## Troubleshooting
+
+Common issues and solutions:
+- Connection timeouts
+- Authentication errors
+- Response format mismatches
+- Resource constraints
+
+For additional support or questions, please refer to our documentation or community forums.

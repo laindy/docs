@@ -1,0 +1,100 @@
+---
+title: Slack Bot Setup
+description: 'How to set up a Slack bot to automatically answer questions'
+---
+
+## HymalaiaBot Introduction
+Hymalaia will connect to your Slack and listen for messages to answer.
+
+You can easily configure rules for what channels Hymalaia should respond in, what knowledge sets should back each configured channel, and set filters to respond or not respond to different types of messages.
+
+When Hymalaia identifies valid questions, it will respond in the message thread with:
+
+- An LLM generated answer
+- Quotes of the most relevant excerpts
+- Sources with highlighted keywords
+
+Hymalaia also provides a configuration page so you can create custom settings for each slack channel (or you can just use the default settings for all your channels).
+
+Since we are using Web Sockets, Hymalaia is able to initiate the connection. This means that this is able to work even if you are running Hymalaia inside a firewall protected VPC.
+
+## Setting up
+
+### Authorization
+
+**Note**: You must be an admin of the Slack workspace to set up the Slack bot.
+
+1. Navigate and sign in to https://api.slack.com/apps.
+2. Create a new Slack app:
+    - Click the **Create New App** button in the top right.
+    - Select **From an app manifest**.
+    - Select the relevant workspace and click **Next**.
+    - Select the “YAML” tab, paste the following manifest into the text box, and click **Next**:
+
+```yaml
+display_information:
+  name: HymalaiaBot
+  description: I help answer questions!
+features:
+  app_home:
+    home_tab_enabled: false
+    messages_tab_enabled: true
+    messages_tab_read_only_enabled: false
+  bot_user:
+    display_name: HymalaiaBot
+    always_online: true
+  slash_commands:
+    - command: /hymalaia
+      description: Get back a private answer!
+      usage_hint: Put your question here!
+      should_escape: false
+oauth_config:
+  scopes:
+    bot:
+      - app_mentions:read
+      - channels:history
+      - channels:join
+      - channels:read
+      - chat:write
+      - commands
+      - groups:history
+      - groups:read
+      - im:history
+      - im:read
+      - mpim:history
+      - reactions:write
+      - users:read.email
+      - users:read
+settings:
+  event_subscriptions:
+    bot_events:
+      - app_mention
+      - message.channels
+      - message.groups
+      - message.im
+      - message.mpim
+  interactivity:
+    is_enabled: true
+  org_deploy_enabled: false
+  socket_mode_enabled: true
+  token_rotation_enabled: false
+```
+
+3. Click **Create**.
+4. Generate an App-level Token under **Basic Information** → **App-level tokens** → **Generate Token**
+    - Add the `connections:write` scope.
+    - Copy the token.
+5. Navigate to **OAuth & Permissions**.
+    - Click **Install to Workspace**.
+    - Click **Allow**.
+    - Copy the **Bot User OAuth Token**.
+
+## Setting Hymalaia to use it
+
+- Go to the admin page in the top right of the Hymalaia UI.
+- In the menu, go to **Bots**.
+- Provide your Slack tokens.
+
+Hymalaia will start responding in Slack channels after a short delay.
+
+There are advanced options available via environment variables. Refer to the configs here: [Slack Bot Setup Documentation](https://docs.hymalaia.app/slack_bot_setup)

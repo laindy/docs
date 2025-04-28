@@ -1,0 +1,71 @@
+---
+title: Multilingual Setup
+description: Configure Hymalaia to support languages other than English.
+---
+
+Hymalaia can be configured to support multiple languages beyond English. This guide walks you through how it works and how to set it up.
+
+## How it works
+
+Hymalaia relies on two core components that assume English by default:
+
+1. **Vector Search and Reranking**  
+   These components use embedding models to retrieve relevant documents for the LLM.
+
+2. **LLM Prompts**  
+   These are used to guide the LLM in how to respond.
+
+To support multilingual scenarios:
+
+- Swap out English-first embedding/reranking models for **multilingual models**.
+- Apply **query expansion** to rephrase the user query into target languages.
+- Provide **LLM instructions** to respond in the same language as the user query.
+
+> ⚠️ **Note**  
+> The built-in LLM prompts are still in English. For fully non-English use, consider translating all prompts directly into your target language.
+
+---
+
+## Configuration
+
+Hymalaia supports multilingual setup entirely through environment variables. For Docker Compose, create a `.env` file inside the `hymalaia/deployment/docker_compose` folder.
+
+Here's an example configuration for **English** and **French**:
+
+```env
+# Rephrase user query in multiple languages
+MULTILINGUAL_QUERY_EXPANSION="English, French"
+
+# Use a multilingual embedding model
+DOCUMENT_ENCODER_MODEL="intfloat/multilingual-e5-small"
+
+# Prefixes used by the embedding model
+ASYM_QUERY_PREFIX="query: "
+ASYM_PASSAGE_PREFIX="passage: "
+
+# Normalize embeddings (model dependent)
+NORMALIZE_EMBEDDINGS="True"
+
+# Disable LLM chunk filtering for better multilingual support
+DISABLE_LLM_CHUNK_FILTER="True"
+
+# Disable reranking (English-first models are not optimal for multilingual use)
+ENABLE_RERANKING_ASYNC_FLOW="False"
+ENABLE_RERANKING_REAL_TIME_FLOW="False"
+
+# Enable fine-grained mini-chunking for better recall
+ENABLE_MINI_CHUNK="True"
+
+# Use a stronger model for better multilingual understanding
+GEN_AI_MODEL_VERSION="gpt-4"
+```
+
+> 📝 An up-to-date template for multilingual settings is also available in the codebase under hymalaia/deployment/docker_compose.
+
+## Recommendations
+- For full translation, localize all prompt templates in your target language.
+
+- Use multilingual embedding models from trusted sources (e.g. Hugging Face).
+
+- Prefer LLMs with multilingual support (e.g. GPT-4, Claude, etc.).
+
